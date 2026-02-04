@@ -1,81 +1,90 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.tsx';
+import { useAuth } from '../context/AuthContext';
 import { FaSearch, FaUser, FaShoppingCart, FaHeart } from 'react-icons/fa';
+import CartButton from './CartButton';
 
-const MainHeader = () => {
+const MainHeader: FC = () => {
   const { user, logout } = useAuth();
 
   return (
-    <div className="bg-white py-6 border-b border-gray-200">
-      <div className="container flex items-center justify-between gap-8">
+    <div style={{ backgroundColor: 'white', padding: '1.5rem 0', borderBottom: '1px solid #e5e7eb' }}>
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
         
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0">
-          <img 
-            src="/logoedybike.png" 
-            alt="Edy Bike" 
-            className="h-[70px] object-contain"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.style.display='none';
-              if (target.nextElementSibling) {
-                (target.nextElementSibling as HTMLElement).style.display='block';
-              }
-            }}
-          />
-          <span className="hidden text-3xl font-extrabold text-primary">
-            Edy<span className="text-secondary">Bike</span>
-          </span>
+        <Link to="/" style={{ flexShrink: 0 }}>
+             <img 
+                src="/logoedybike.png" 
+                alt="Edy Bike" 
+                style={{ height: '70px', objectFit: 'contain' }}
+                onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display='none'; 
+                    (target.nextSibling as HTMLElement).style.display='block';
+                }}
+            />
+             <span style={{ display: 'none', fontSize: '2rem', fontWeight: 800, color: 'var(--primary-color)' }}>
+                Edy<span style={{ color: 'var(--secondary-color)' }}>Bike</span>
+             </span>
         </Link>
 
         {/* Search Bar - Big & Central */}
-        <div className="flex-1 relative">
-          <input 
-            type="text" 
-            placeholder="Busque por produto, categoria ou marca..." 
-            className="w-full py-3.5 px-4 pl-12 rounded-lg border-2 border-primary text-base bg-white focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-primary text-xl" />
-          <button className="absolute right-1.5 top-1.5 bottom-1.5 bg-primary text-white border-0 rounded-md px-6 font-bold cursor-pointer hover:bg-primary-dark transition-colors">
-            Buscar
-          </button>
+        <div style={{ flex: 1, position: 'relative' }}>
+            <input 
+                type="text" 
+                placeholder="Busque por produto, categoria ou marca..." 
+                style={{ 
+                    width: '100%', 
+                    padding: '0.85rem 1rem 0.85rem 3rem', 
+                    borderRadius: '8px', /* More square/modern than pill for this style */
+                    border: '2px solid var(--primary-color)',
+                    fontSize: '1rem',
+                    backgroundColor: '#fff'
+                }}
+            />
+            <FaSearch style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--primary-color)', fontSize: '1.2rem' }} />
+            <button style={{ 
+                position: 'absolute', 
+                right: '5px', 
+                top: '5px', 
+                bottom: '5px', 
+                backgroundColor: 'var(--primary-color)', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '6px',
+                padding: '0 1.5rem',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+            }}>
+                Buscar
+            </button>
         </div>
 
         {/* Account & Cart Actions */}
-        <div className="flex gap-6 text-gray-800">
-          
-          <div className="flex items-center gap-2 cursor-pointer">
-            <FaHeart size={24} className="text-gray-400" />
-          </div>
-
-          <div className="flex items-center gap-2 cursor-pointer">
-            <FaShoppingCart size={24} className="text-primary" />
-            <div className="flex flex-col leading-none">
-              <span className="text-xs text-gray-400">Sua Cesta</span>
-              <span className="font-bold">R$ 0,00</span>
+        <div style={{ display: 'flex', gap: '1.5rem', color: 'var(--text-main)' }}>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                <FaHeart size={24} color="var(--text-light)" />
             </div>
-          </div>
 
-          <div className="flex items-center gap-3 pl-6 border-l border-gray-200">
-            <div className="bg-gray-100 p-2 rounded-full">
-              <FaUser size={20} className="text-gray-600" />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-xs text-gray-400">
-                {user ? `Olá, ${user.role}` : 'Bem vindo(a)'}
-              </span>
-              {user && (
-                <div className="flex gap-2">
-                  <Link to="/admin" className="text-sm font-bold text-gray-800 hover:text-primary">
-                    Painel
-                  </Link>
-                  <span onClick={logout} className="text-sm font-bold text-secondary cursor-pointer hover:text-secondary-dark">
-                    Sair
-                  </span>
+            <CartButton />
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', paddingLeft: '1.5rem', borderLeft: '1px solid #e5e7eb' }}>
+                <div style={{ backgroundColor: '#f3f4f6', padding: '0.5rem', borderRadius: '50%' }}>
+                    <FaUser size={20} color="var(--text-secondary)" />
                 </div>
-              )}
+                <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--text-light)' }}>
+                        {user ? `Olá, ${user.role}` : 'Bem vindo(a)'}
+                    </span>
+                    {user && (
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <Link to="/admin" style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-main)' }}>Painel</Link>
+                            <span onClick={logout} style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--secondary-color)', cursor: 'pointer' }}>Sair</span>
+                        </div>
+                    )}
+                </div>
             </div>
-          </div>
 
         </div>
       </div>

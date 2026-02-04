@@ -1,40 +1,45 @@
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import ProductsTab from './ProductsTab.tsx';
-import CategoriesTab from './CategoriesTab.tsx';
+import { useState, FC } from 'react';
+import ProductsTab from './ProductsTab';
+import CategoriesTab from './CategoriesTab';
 
-const AdminDashboard = () => {
-  const location = useLocation();
-  const currentTab = location.pathname.split('/')[2] || 'products';
+const AdminDashboard: FC = () => {
+  const [activeTab, setActiveTab] = useState('products');
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="container py-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">Painel Administrativo</h1>
-          
-          <nav className="flex gap-4">
-            <Link
-              to="/admin/products"
-              className={`btn ${currentTab === 'products' ? 'btn-primary' : 'btn-outline'}`}
-            >
-              Produtos
-            </Link>
-            <Link
-              to="/admin/categories"
-              className={`btn ${currentTab === 'categories' ? 'btn-primary' : 'btn-outline'}`}
-            >
-              Categorias
-            </Link>
-          </nav>
-        </div>
+    <div>
+      <h1 style={{ marginBottom: '2rem' }}>Painel Administrativo</h1>
+
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid var(--border-color)' }}>
+        <button 
+          onClick={() => setActiveTab('products')}
+          style={{
+            padding: '1rem 2rem',
+            background: 'transparent',
+            borderBottom: activeTab === 'products' ? '2px solid var(--primary-color)' : '2px solid transparent',
+            color: activeTab === 'products' ? 'var(--primary-color)' : 'var(--text-muted)',
+            fontWeight: 'bold',
+            fontSize: '1.1rem'
+          }}
+        >
+          Produtos
+        </button>
+        <button 
+          onClick={() => setActiveTab('categories')}
+          style={{
+            padding: '1rem 2rem',
+            background: 'transparent',
+            borderBottom: activeTab === 'categories' ? '2px solid var(--primary-color)' : '2px solid transparent',
+            color: activeTab === 'categories' ? 'var(--primary-color)' : 'var(--text-muted)',
+            fontWeight: 'bold',
+            fontSize: '1.1rem'
+          }}
+        >
+          Categorias
+        </button>
       </div>
 
-      <div className="container py-8">
-        <Routes>
-          <Route path="products" element={<ProductsTab />} />
-          <Route path="categories" element={<CategoriesTab />} />
-          <Route path="/" element={<ProductsTab />} />
-        </Routes>
+      <div>
+        {activeTab === 'products' ? <ProductsTab /> : <CategoriesTab />}
       </div>
     </div>
   );

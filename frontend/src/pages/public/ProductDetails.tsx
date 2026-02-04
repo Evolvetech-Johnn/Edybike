@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../../services/api';
 import { FaArrowLeft, FaWhatsapp } from 'react-icons/fa';
 import { mockProducts } from '../../data/mockProducts';
-import type { Product } from '../../types';
 
-const ProductDetails = () => {
+const ProductDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await api.get<Product>(`/products/${id}`);
+        const { data } = await api.get(`/products/${id}`);
         setProduct(data);
         setLoading(false);
       } catch (error) {
@@ -26,65 +25,73 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id]);
 
-  if (loading) return <div className="container pt-16 text-center">Carregando...</div>;
-  if (!product) return <div className="container pt-16 text-center">Produto não encontrado.</div>;
+  if (loading) return <div className="container" style={{ paddingTop: '4rem', textAlign: 'center' }}>Carregando...</div>;
+  if (!product) return <div className="container" style={{ paddingTop: '4rem', textAlign: 'center' }}>Produto não encontrado.</div>;
 
   return (
-    <div className="container py-8 px-6">
-      <Link to="/" className="inline-flex items-center gap-2 mb-8 text-gray-600 font-semibold hover:text-primary">
+    <div className="container" style={{ padding: '2rem 1.5rem' }}>
+      <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
         <FaArrowLeft /> Voltar para o catálogo
       </Link>
 
-      <div className="grid grid-cols-2 gap-16 items-start">
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
         {/* Left Column: Image */}
-        <div className="bg-white rounded-lg p-8 border border-gray-200 shadow-md flex justify-center">
-          <img 
-            src={product.imageUrl} 
-            alt={product.name} 
-            className="max-w-full max-h-[500px] object-contain"
-          />
+        <div style={{ 
+            backgroundColor: 'white', 
+            borderRadius: 'var(--radius-lg)', 
+            padding: '2rem', 
+            border: '1px solid var(--border-light)',
+            boxShadow: 'var(--shadow-md)',
+            display: 'flex',
+            justifyContent: 'center'
+        }}>
+           <img 
+             src={product.imageUrl} 
+             alt={product.name} 
+             style={{ maxWidth: '100%', maxHeight: '500px', objectFit: 'contain' }}
+           />
         </div>
 
         {/* Right Column: Info */}
         <div>
-          <div className="mb-6">
-            <span className="tag tag-neutral mb-4">
-              {product.category?.name || 'Geral'}
-            </span>
-            <h1 className="text-4xl leading-tight mb-2 text-accent">
-              {product.name}
-            </h1>
-            <div className="flex items-center gap-4 mt-4">
-              {product.stock > 0 ? (
-                <span className="tag tag-success">Disponível em Estoque</span>
-              ) : (
-                <span className="tag tag-danger">Produto Indisponível</span>
-              )}
-              <span className="text-gray-400">|</span>
-              <span className="text-gray-600">Cód: {product._id.substring(0,6)}</span>
-            </div>
-          </div>
+           <div style={{ marginBottom: '1.5rem' }}>
+             <span className="tag tag-neutral" style={{ marginBottom: '1rem' }}>
+                {product.category?.name || 'Geral'}
+             </span>
+             <h1 style={{ fontSize: '2.5rem', lineHeight: 1.1, marginBottom: '0.5rem', color: 'var(--accent-color)' }}>
+                {product.name}
+             </h1>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '1rem' }}>
+                 {product.stock > 0 ? (
+                    <span className="tag tag-success">Disponível em Estoque</span>
+                 ) : (
+                    <span className="tag tag-danger">Produto Indisponível</span>
+                 )}
+                 <span style={{ color: 'var(--text-light)' }}>|</span>
+                 <span style={{ color: 'var(--text-secondary)' }}>Cód: {product._id.substring(0,6)}</span>
+             </div>
+           </div>
 
-          <div className="mb-8">
-            <p className="text-5xl font-extrabold text-primary">
-              R$ {product.price.toFixed(2)}
-            </p>
-            <p className="text-gray-400 text-sm">
-              À vista ou em até 12x no cartão
-            </p>
-          </div>
+           <div style={{ marginBottom: '2rem' }}>
+             <p style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--primary-color)' }}>
+               R$ {product.price.toFixed(2)}
+             </p>
+             <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>
+                À vista ou em até 12x no cartão
+             </p>
+           </div>
 
-          <div className="mb-10 leading-relaxed text-gray-600">
-            <h3 className="text-lg text-gray-800 mb-3">Sobre o produto</h3>
-            <p className="whitespace-pre-line">{product.description}</p>
-          </div>
-          
-          {product.stock > 0 && (
-            <button className="btn btn-primary py-4 px-8 text-lg w-full">
-              <FaWhatsapp size={20} />
-              Tenho Interesse / Comprar
-            </button>
-          )}
+           <div style={{ marginBottom: '2.5rem', lineHeight: 1.8, color: 'var(--text-secondary)' }}>
+             <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '0.75rem' }}>Sobre o produto</h3>
+             <p style={{ whiteSpace: 'pre-line' }}>{product.description}</p>
+           </div>
+           
+           {product.stock > 0 && (
+             <button className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem', width: '100%' }}>
+               <FaWhatsapp size={20} />
+               Tenho Interesse / Comprar
+             </button>
+           )}
         </div>
       </div>
     </div>

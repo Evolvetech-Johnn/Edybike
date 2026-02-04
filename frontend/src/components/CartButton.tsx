@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { useCart } from '../context/CartContext';
 import { FaShoppingCart } from 'react-icons/fa';
 
-const CartButton = () => {
+const CartButton: FC = () => {
   const { getCartCount, toggleCart } = useCart();
   const count = getCartCount();
 

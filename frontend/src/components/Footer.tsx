@@ -1,105 +1,77 @@
+import { FC } from 'react';
 import { FaWhatsapp, FaInstagram, FaFacebook, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
-    <footer className="bg-accent text-gray-100 pt-16 pb-8 mt-auto">
+    <footer style={{ backgroundColor: '#111827', color: '#f3f4f6', paddingTop: '4rem', paddingBottom: '2rem', marginTop: 'auto' }}>
       <div className="container">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-12 mb-12">
+        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
           
           {/* Brand Column */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <img src="/logoedybike.png" alt="Edy Bike" className="h-10" />
-              <span className="text-2xl font-extrabold text-white">
-                Edy<span className="text-secondary">Bike</span>
-              </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                <img src="/logoedybike.png" alt="Edy Bike" style={{ height: '40px' }} />
+                <span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'white' }}>Edy<span style={{ color: 'var(--secondary-color)' }}>Bike</span></span>
             </div>
-            <p className="text-gray-400 leading-relaxed">
+            <p style={{ color: '#9ca3af', lineHeight: 1.6 }}>
               Sua loja especializada em bicicletas, peças e acessórios. Qualidade e confiança para suas pedaladas.
             </p>
           </div>
 
           {/* Links Column */}
           <div>
-            <h4 className="text-white text-xl mb-6 border-b-2 border-primary inline-block pb-2">
-              Navegação
+            <h4 style={{ color: 'white', fontSize: '1.2rem', marginBottom: '1.5rem', borderBottom: '2px solid var(--primary-color)', display: 'inline-block', paddingBottom: '0.5rem' }}>
+                Navegação
             </h4>
-            <ul className="list-none">
-              <li className="mb-2">
-                <Link to="/" className="text-gray-300 hover:text-primary transition-colors">
-                  Catálogo
-                </Link>
-              </li>
-              <li className="mb-2">
-                <Link to="/admin/login" className="text-gray-300 hover:text-primary transition-colors">
-                  Área Administrativa
-                </Link>
-              </li>
-              <li className="mb-2">
-                <a href="#" className="text-gray-300 hover:text-primary transition-colors">
-                  Política de Privacidade
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="#" className="text-gray-300 hover:text-primary transition-colors">
-                  Termos de Uso
-                </a>
-              </li>
+            <ul style={{ listStyle: 'none' }}>
+                <li className="mb-2"><Link to="/" style={{ color: '#d1d5db' }}>Catálogo</Link></li>
+                <li className="mb-2"><Link to="/admin/login" style={{ color: '#d1d5db' }}>Área Administrativa</Link></li>
+                <li className="mb-2"><a href="#" style={{ color: '#d1d5db' }}>Política de Privacidade</a></li>
+                <li className="mb-2"><a href="#" style={{ color: '#d1d5db' }}>Termos de Uso</a></li>
             </ul>
           </div>
 
           {/* Contact Column */}
           <div>
-            <h4 className="text-white text-xl mb-6 border-b-2 border-secondary inline-block pb-2">
-              Contato
+            <h4 style={{ color: 'white', fontSize: '1.2rem', marginBottom: '1.5rem', borderBottom: '2px solid var(--secondary-color)', display: 'inline-block', paddingBottom: '0.5rem' }}>
+                Contato
             </h4>
-            <ul className="list-none text-gray-300">
-              <li className="mb-4 flex gap-3 items-start">
-                <FaMapMarkerAlt className="text-primary mt-1" />
-                <span>
-                  Rua das Bicicletas, 123<br />Centro, Cidade - UF
-                </span>
-              </li>
-              <li className="mb-4 flex gap-3 items-center">
-                <FaWhatsapp className="text-[#25D366] text-xl" />
-                <span>(11) 99999-9999</span>
-              </li>
-              <li className="mb-4 flex gap-3 items-center">
-                <FaEnvelope className="text-secondary" />
-                <span>contato@edybike.com</span>
-              </li>
+            <ul style={{ listStyle: 'none', color: '#d1d5db' }}>
+                <li className="mb-4" style={{ display: 'flex', gap: '0.75rem', alignItems: 'start' }}>
+                    <FaMapMarkerAlt style={{ color: 'var(--primary-color)', marginTop: '0.25rem' }} />
+                    <span>Rua das Bicicletas, 123<br />Centro, Cidade - UF</span>
+                </li>
+                <li className="mb-4" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                    <FaWhatsapp style={{ color: '#25D366', fontSize: '1.2rem' }} />
+                    <span>(11) 99999-9999</span>
+                </li>
+                <li className="mb-4" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                    <FaEnvelope style={{ color: 'var(--secondary-color)' }} />
+                    <span>contato@edybike.com</span>
+                </li>
             </ul>
           </div>
 
-          {/* Social Column */}
-          <div>
-            <h4 className="text-white text-xl mb-6">Redes Sociais</h4>
-            <div className="flex gap-4">
-              <a 
-                href="#" 
-                className="bg-gray-800 p-3 rounded-full text-white transition-all hover:bg-primary hover:-translate-y-1"
-              >
-                <FaInstagram size={24} />
-              </a>
-              <a 
-                href="#" 
-                className="bg-gray-800 p-3 rounded-full text-white transition-all hover:bg-primary hover:-translate-y-1"
-              >
-                <FaFacebook size={24} />
-              </a>
-              <a 
-                href="#" 
-                className="bg-gray-800 p-3 rounded-full text-white transition-all hover:bg-primary hover:-translate-y-1"
-              >
-                <FaWhatsapp size={24} />
-              </a>
+            {/* Social Column */}
+            <div>
+                <h4 style={{ color: 'white', fontSize: '1.2rem', marginBottom: '1.5rem' }}>Redes Sociais</h4>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <a href="#" style={{ backgroundColor: '#252f3f', padding: '0.75rem', borderRadius: '50%', color: 'white', transition: 'all 0.3s' }} className="social-icon">
+                        <FaInstagram size={24} />
+                    </a>
+                    <a href="#" style={{ backgroundColor: '#252f3f', padding: '0.75rem', borderRadius: '50%', color: 'white', transition: 'all 0.3s' }} className="social-icon">
+                        <FaFacebook size={24} />
+                    </a>
+                    <a href="#" style={{ backgroundColor: '#252f3f', padding: '0.75rem', borderRadius: '50%', color: 'white', transition: 'all 0.3s' }} className="social-icon">
+                        <FaWhatsapp size={24} />
+                    </a>
+                </div>
             </div>
-          </div>
         </div>
 
-        <div className="border-t border-gray-700 pt-8 text-center text-gray-500 text-sm">
-          &copy; {new Date().getFullYear()} Edy Bike - Todos os direitos reservados.
+        <div style={{ borderTop: '1px solid #374151', paddingTop: '2rem', textAlign: 'center', color: '#6b7280', fontSize: '0.9rem' }}>
+            &copy; {new Date().getFullYear()} Edy Bike - Todos os direitos reservados.
         </div>
       </div>
     </footer>

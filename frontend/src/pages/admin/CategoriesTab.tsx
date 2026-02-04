@@ -1,28 +1,20 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FC, FormEvent } from 'react';
 import api from '../../services/api';
-import { FaEdit, FaTrash } from 'react-icons/fa';
-import type { Category } from '../../types';
+import { FaTrash } from 'react-icons/fa';
 
-interface CategoryFormData {
-  name: string;
-  description: string;
-}
-
-const CategoriesTab = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-  const [formData, setFormData] = useState<CategoryFormData>({
-    name: '',
-    description: ''
-  });
+const CategoriesTab: FC = () => {
+  const [categories, setCategories] = useState<any[]>([]);
+  const [newCategory, setNewCategory] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const fetchCategories = async () => {
     try {
-      const { data } = await api.get<Category[]>('/categories');
+      const { data } = await api.get('/categories');
       setCategories(data);
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 
@@ -30,81 +22,52 @@ const CategoriesTab = () => {
     fetchCategories();
   }, []);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleAdd = async (e: FormEvent) => {
     e.preventDefault();
+    if (!newCategory.trim()) return;
+
     try {
-      if (isEditing && currentCategory) {
-        await api.put(`/categories/${currentCategory._id}`, formData);
-      } else {
-        await api.post('/categories', formData);
-      }
-      setIsEditing(false);
-      setCurrentCategory(null);
-      setFormData({ name: '', description: '' });
+      await api.post('/categories', { name: newCategory });
+      setNewCategory('');
       fetchCategories();
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Erro ao salvar categoria');
+      alert(error.response?.data?.message || 'Error creating category');
     }
   };
 
-  const handleEdit = (category: Category) => {
-    setIsEditing(true);
-    setCurrentCategory(category);
-    setFormData({
-      name: category.name,
-      description: category.description || ''
-    });
-  };
-
   const handleDelete = async (id: string) => {
-    if(!window.confirm('Deletar esta categoria?')) return;
+    if (!window.confirm('Tem certeza que deseja excluir esta categoria?')) return;
     try {
       await api.delete(`/categories/${id}`);
       fetchCategories();
     } catch (error) {
-      alert('Erro ao deletar categoria');
+      alert('Erro ao excluir (pode haver produtos vinculados)');
     }
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-    setCurrentCategory(null);
-    setFormData({ name: '', description: '' });
   };
 
   return (
     <div>
-      <div className="card mb-8 p-6">
-        <h3 className="text-xl font-bold mb-4">{isEditing ? 'Editar Categoria' : 'Nova Categoria'}</h3>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="form-label">Nome</label>
-            <input required className="form-control" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
-          </div>
-          
-          <div>
-            <label className="form-label">Descrição</label>
-            <textarea className="form-control" rows={3} value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})}></textarea>
-          </div>
-
-          <div className="flex gap-4">
-            <button type="submit" className="btn btn-primary">{isEditing ? 'Salvar Alterações' : 'Criar Categoria'}</button>
-            {isEditing && <button type="button" onClick={handleCancel} className="btn btn-outline">Cancelar</button>}
-          </div>
+      <div className="card" style={{ marginBottom: '2rem' }}>
+        <h3>Nova Categoria</h3>
+        <form onSubmit={handleAdd} style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+          <input 
+            type="text" 
+            className="form-control" 
+            placeholder="Nome da categoria"
+            value={newCategory}
+            onChange={(e) => setNewCategory(e.target.value)} 
+          />
+          <button type="submit" className="btn btn-primary">Adicionar</button>
         </form>
       </div>
 
-      <div className="grid gap-4">
-        {categories.map(category => (
-          <div key={category._id} className="card p-4 flex justify-between items-center">
-            <div>
-              <h4 className="m-0 font-bold">{category.name}</h4>
-              <p className="text-sm text-gray-500 m-0">{category.description}</p>
-            </div>
-            <div className="flex gap-2">
-              <button onClick={() => handleEdit(category)} className="btn btn-outline p-2"><FaEdit /></button>
-              <button onClick={() => handleDelete(category._id)} className="btn btn-danger p-2"><FaTrash /></button>
-            </div>
+      <div className="grid grid-cols-3">
+        {categories.map(cat => (
+          <div key={cat._id} className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontWeight: 'bold' }}>{cat.name}</span>
+            <button onClick={() => handleDelete(cat._id)} className="btn btn-danger" style={{ padding: '0.5rem' }}>
+              <FaTrash />
+            </button>
           </div>
         ))}
       </div>

@@ -1,39 +1,46 @@
-import { useState, FormEvent } from 'react';
+import { useState, FC, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext.tsx';
+import { useAuth } from '../../context/AuthContext';
 
-const Login = () => {
+const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
     
-    try {
-      await login(email, password);
+    const result = await login(email, password);
+    
+    if (result.success) {
       navigate('/admin');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Falha no login');
+    } else {
+      setError(result.message || 'Erro no login');
     }
   };
 
   return (
-    <div className="max-w-md mx-auto my-16">
-      <div className="card p-8">
-        <h2 className="text-center mb-8 text-2xl font-bold">Admin Login</h2>
+    <div style={{ maxWidth: '400px', margin: '4rem auto' }}>
+      <div className="card">
+        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Admin Login</h2>
         
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-md mb-4">
+          <div style={{ 
+            backgroundColor: '#ef444420', 
+            color: '#ef4444', 
+            padding: '1rem', 
+            borderRadius: 'var(--radius)',
+            marginBottom: '1rem' 
+          }}>
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
             <label className="form-label">Email</label>
             <input
               type="email"
@@ -44,7 +51,7 @@ const Login = () => {
             />
           </div>
 
-          <div>
+          <div className="form-group">
             <label className="form-label">Password</label>
             <input
               type="password"
@@ -55,7 +62,7 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-full mt-6">
+          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
             Entrar
           </button>
         </form>

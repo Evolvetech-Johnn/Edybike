@@ -1,28 +1,54 @@
-const MenuBar = () => {
-  const menuItems = [
-    'MOUNTAIN BIKES', 'URBANAS', 'ELÉTRICAS', 'INFANTIL', 'PEÇAS', 'ACESSÓRIOS', 'VESTUÁRIO', 'OFERTAS'
-  ];
+import { FC } from 'react';
+import { Link } from 'react-router-dom';
 
-  return (
-    <div className="bg-[#0056b3] text-white">
-      <div className="container">
-        <nav>
-          <ul className="flex list-none m-0 p-0 justify-center gap-8">
-            {menuItems.map(item => (
-              <li key={item} className="py-3">
-                <a 
-                  href="#" 
-                  className="text-white font-bold text-sm no-underline tracking-wide hover:text-primary-light transition-colors"
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </div>
-  );
+const MenuBar: FC = () => {
+    const menuItems = [
+        { name: 'MOUNTAIN BIKES', path: '/bikes/mountain' },
+        { name: 'URBANAS', path: '/bikes/urban' },
+        { name: 'ELÉTRICAS', path: '/bikes/electric' },
+        { name: 'INFANTIL', path: '/bikes/kids' },
+        { name: 'PEÇAS', path: '/parts' },
+        { name: 'ACESSÓRIOS', path: '/accessories' },
+        { name: 'VESTUÁRIO', path: '/apparel' },
+        { name: 'OFERTAS', path: '/deals' }
+    ];
+
+    return (
+        <div style={{ backgroundColor: '#0056b3', color: 'white' }}>
+            <div className="container">
+                <nav>
+                    <ul style={{ 
+                        display: 'flex', 
+                        listStyle: 'none', 
+                        margin: 0, 
+                        padding: 0, 
+                        justifyContent: 'center',
+                        gap: '2rem'
+                    }}>
+                        {menuItems.map(item => (
+                            <li key={item.name} style={{ padding: '0.8rem 0' }}>
+                                <Link 
+                                    to={item.path} 
+                                    style={{ 
+                                        color: 'white', 
+                                        fontWeight: 'bold', 
+                                        fontSize: '0.9rem', 
+                                        textDecoration: 'none',
+                                        letterSpacing: '0.5px',
+                                        transition: 'opacity 0.3s'
+                                    }}
+                                    onMouseEnter={(e) => (e.target as HTMLElement).style.opacity = '0.8'}
+                                    onMouseLeave={(e) => (e.target as HTMLElement).style.opacity = '1'}
+                                >
+                                    {item.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    );
 };
 
 export default MenuBar;
