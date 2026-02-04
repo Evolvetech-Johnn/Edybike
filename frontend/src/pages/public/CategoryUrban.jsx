@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {urbanBikes, formatPrice} from '../../data/categoryProducts';
+import { useCart } from '../../context/CartContext';
 import { FaStar, FaShoppingCart, FaEye } from 'react-icons/fa';
 
 const CategoryUrban = () => {
   const [products] = useState(urbanBikes);
+  const { addToCart } = useCart();
 
   return (
     <div style={{ backgroundColor: '#f3f4f6', minHeight: '100vh' }}>
@@ -67,7 +69,7 @@ const CategoryUrban = () => {
                   <Link to={`/product/${product.id}`} className="btn btn-outline" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                     <FaEye /> Detalhes
                   </Link>
-                  <button className="btn btn-primary" style={{ flex: 1 }} disabled={!product.inStock}>
+                  <button className="btn btn-primary" style={{ flex: 1 }} disabled={!product.inStock} onClick={() => addToCart(product, 1)}>
                     <FaShoppingCart /> {product.inStock ? 'Comprar' : 'Indisponível'}
                   </button>
                 </div>
