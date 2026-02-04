@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { mountainBikes, formatPrice } from '../../data/categoryProducts';
+import { useCart } from '../../context/CartContext';
 import { FaStar, FaShoppingCart, FaEye } from 'react-icons/fa';
 
 const CategoryMountain = () => {
   const [products] = useState(mountainBikes);
+  const { addToCart } = useCart();
 
   return (
     <div style={{ backgroundColor: '#f3f4f6', minHeight: '100vh' }}>
@@ -105,6 +107,7 @@ const CategoryMountain = () => {
                     className="btn btn-primary"
                     style={{ flex: 1 }}
                     disabled={!product.inStock}
+                    onClick={() => addToCart(product, 1)}
                   >
                     <FaShoppingCart /> {product.inStock ? 'Comprar' : 'Indisponível'}
                   </button>
