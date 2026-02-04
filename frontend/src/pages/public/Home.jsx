@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../../services/api';
 import ProductCard from '../../components/ProductCard';
-import HeroBanner from '../../components/HeroBanner';
+import HeroCarousel from '../../components/HeroCarousel';
 import BenefitsBar from '../../components/BenefitsBar';
 import { mockProducts, mockCategories } from '../../data/mockProducts';
 
@@ -51,7 +51,7 @@ const Home = () => {
   return (
     <div style={{ backgroundColor: '#f3f4f6' }}>
       
-      <HeroBanner />
+      <HeroCarousel />
       <BenefitsBar />
 
       <div className="container" style={{ padding: '2rem 1rem' }}>
