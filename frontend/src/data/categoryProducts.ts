@@ -1,7 +1,14 @@
-// Produtos mockados por categoria
-// Cada produto tem: id, nome, marca, modelo, preço, imagem, características
+import { Product, ProductWithDiscount } from '../types';
 
-export const mountainBikes = [
+// Função auxiliar para formatar preço
+export const formatPrice = (price: number): string => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(price);
+};
+
+export const mountainBikes: Product[] = [
   {
     id: 'mtb-1',
     name: 'Trek Marlin 7',
@@ -52,7 +59,7 @@ export const mountainBikes = [
   }
 ];
 
-export const urbanBikes = [
+export const urbanBikes: Product[] = [
   {
     id: 'urban-1',
     name: 'Caloi City Tour',
@@ -103,7 +110,7 @@ export const urbanBikes = [
   }
 ];
 
-export const electricBikes = [
+export const electricBikes: Product[] = [
   {
     id: 'ebike-1',
     name: 'Caloi E-Vibe',
@@ -154,7 +161,7 @@ export const electricBikes = [
   }
 ];
 
-export const kidsBikes = [
+export const kidsBikes: Product[] = [
   {
     id: 'kids-1',
     name: 'Caloi Ceci',
@@ -205,15 +212,7 @@ export const kidsBikes = [
   }
 ];
 
-// Função auxiliar para formatar preço
-export const formatPrice = (price) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(price);
-};
-
-export const parts = [
+export const parts: Product[] = [
   {
     id: 'part-1',
     name: 'Freio a Disco Shimano',
@@ -264,7 +263,7 @@ export const parts = [
   }
 ];
 
-export const accessories = [
+export const accessories: Product[] = [
   {
     id: 'acc-1',
     name: 'Capacete Ciclismo',
@@ -315,7 +314,7 @@ export const accessories = [
   }
 ];
 
-export const apparel = [
+export const apparel: Product[] = [
   {
     id: 'app-1',
     name: 'Camisa Ciclismo',
@@ -366,7 +365,7 @@ export const apparel = [
   }
 ];
 
-export const deals = [
+export const deals: ProductWithDiscount[] = [
   {
     id: 'deal-1',
     name: 'Trek FX 1 (Outlet)',

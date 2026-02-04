@@ -1,20 +1,33 @@
 import { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 import api from '../services/api';
-import type { User, AuthContextType, LoginCredentials } from '../types';
+
+interface User {
+  id: string;
+  email: string;
+  role: string;
+  name?: string;
+}
+
+interface AuthContextType {
+  user: User | null;
+  login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
+  logout: () => void;
+  loading: boolean;
+}
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const useAuth = (): AuthContextType => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
@@ -26,17 +39,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       try {
         setUser(JSON.parse(storedUser));
       } catch (error) {
-        console.error('Failed to parse stored user:', error);
-        localStorage.removeItem('user');
+        console.error('Error parsing stored user:', error);
       }
     }
     setLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<void> => {
-    const { data } = await api.post<User>('/auth/login', { email, password });
-    localStorage.setItem('user', JSON.stringify(data));
-    setUser(data);
+  const login = async (email: string, password: string): Promise<{ success: boolean; message?: string }> => {
+    try {
+      const { data } = await api.post('/auth/login', { email, password });
+      localStorage.setItem('user', JSON.stringify(data));
+      setUser(data);
+      return { success: true };
+    } catch (error: any) {
+      return { 
+        success: false, 
+        message: error.response?.data?.message || 'Login failed' 
+      };
+    }
   };
 
   const logout = () => {
@@ -44,11 +64,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   };
 
-  const value: AuthContextType = {
+  const value = {
     user,
     login,
     logout,
-    isAuthenticated: !!user
+    loading
   };
 
   return (
