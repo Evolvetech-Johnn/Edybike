@@ -6,10 +6,10 @@ const MenuBar = () => {
         { name: 'URBANAS', path: '/bikes/urban' },
         { name: 'ELÉTRICAS', path: '/bikes/electric' },
         { name: 'INFANTIL', path: '/bikes/kids' },
-        { name: 'PEÇAS', path: '#' },
-        { name: 'ACESSÓRIOS', path: '#' },
-        { name: 'VESTUÁRIO', path: '#' },
-        { name: 'OFERTAS', path: '#' }
+        { name: 'PEÇAS', path: '/parts' },
+        { name: 'ACESSÓRIOS', path: '/accessories' },
+        { name: 'VESTUÁRIO', path: '/apparel' },
+        { name: 'OFERTAS', path: '/deals' }
     ];
 
     return (

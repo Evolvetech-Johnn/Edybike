@@ -5,6 +5,10 @@ import CategoryMountain from './pages/public/CategoryMountain';
 import CategoryUrban from './pages/public/CategoryUrban';
 import CategoryElectric from './pages/public/CategoryElectric';
 import CategoryKids from './pages/public/CategoryKids';
+import CategoryParts from './pages/public/CategoryParts';
+import CategoryAccessories from './pages/public/CategoryAccessories';
+import CategoryApparel from './pages/public/CategoryApparel';
+import CategoryDeals from './pages/public/CategoryDeals';
 import Login from './pages/admin/Login';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import Header from './components/Header';
@@ -29,6 +33,10 @@ function App() {
               <Route path="/bikes/urban" element={<CategoryUrban />} />
               <Route path="/bikes/electric" element={<CategoryElectric />} />
               <Route path="/bikes/kids" element={<CategoryKids />} />
+              <Route path="/parts" element={<CategoryParts />} />
+              <Route path="/accessories" element={<CategoryAccessories />} />
+              <Route path="/apparel" element={<CategoryApparel />} />
+              <Route path="/deals" element={<CategoryDeals />} />
               
               {/* Admin Routes */}
               <Route path="/admin/login" element={<Login />} />

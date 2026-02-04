@@ -212,3 +212,215 @@ export const formatPrice = (price) => {
     currency: 'BRL'
   }).format(price);
 };
+
+export const parts = [
+  {
+    id: 'part-1',
+    name: 'Freio a Disco Shimano',
+    brand: 'Shimano',
+    model: 'Deore XT M8100',
+    price: 899.00,
+    image: '/src/assets/img/bikes/61qlTVSccxL._AC_UF350,350_QL80.png',
+    features: ['Hidráulico', '4 pistões', 'Rotor 180mm', 'Potência superior'],
+    inStock: true,
+    rating: 4.9,
+    reviews: 342
+  },
+  {
+    id: 'part-2',
+    name: 'Cambio Traseiro SRAM',
+    brand: 'SRAM',
+    model: 'GX Eagle 12v',
+    price: 1299.00,
+    image: '/src/assets/img/bikes/D_NQ_NP_978518-MLB82319281383_02.png',
+    features: ['12 velocidades', 'Cage longa', 'Tecnologia X-Sync', 'Compatível Eagle'],
+    inStock: true,
+    rating: 4.8,
+    reviews: 278
+  },
+  {
+    id: 'part-3',
+    name: 'Suspensão RockShox',
+    brand: 'RockShox',
+    model: 'Pike Ultimate 140mm',
+    price: 3499.00,
+    image: '/src/assets/img/bikes/MTBs-full-suspension-para-homens.png',
+    features: ['Travel 140mm', 'Ajuste de compressão', 'Eixo Boost 15mm', 'Charger 2.1 damper'],
+    inStock: true,
+    rating: 5.0,
+    reviews: 156
+  },
+  {
+    id: 'part-4',
+    name: 'Pedivela Shimano',
+    brand: 'Shimano',
+    model: 'Deore M6100 1x12',
+    price: 749.00,
+    image: '/src/assets/img/bikes/Pinarello-Dogma-65.1-Think-2.png',
+    features: ['1x12 velocidades', 'Comprimento 170mm', 'Coroa 32T', 'Hollow Tech II'],
+    inStock: false,
+    rating: 4.7,
+    reviews: 198
+  }
+];
+
+export const accessories = [
+  {
+    id: 'acc-1',
+    name: 'Capacete Ciclismo',
+    brand: 'Giro',
+    model: 'Fixture MIPS',
+    price: 349.00,
+    image: '/src/assets/img/bikes/61qlTVSccxL._AC_UF350,350_QL80.png',
+    features: ['Proteção MIPS', '18 entradas de ar', 'Ajuste Roc Loc', 'Certificado CPSC'],
+    inStock: true,
+    rating: 4.8,
+    reviews: 524
+  },
+  {
+    id: 'acc-2',
+    name: 'Luva Ciclismo',
+    brand: 'Specialized',
+    model: 'Body Geometry Gel',
+    price: 129.00,
+    image: '/src/assets/img/bikes/D_NQ_NP_978518-MLB82319281383_02.png',
+    features: ['Proteção gel', 'Respirável', 'Dedos longos', 'Touchscreen compatível'],
+    inStock: true,
+    rating: 4.6,
+    reviews: 412
+  },
+  {
+    id: 'acc-3',
+    name: 'Bomba de Ar Portátil',
+    brand: 'Topeak',
+    model: 'RaceRocket HP',
+    price: 189.00,
+    image: '/src/assets/img/bikes/MTBs-full-suspension-para-homens.png',
+    features: ['Pressão até 160 PSI', 'Cabeça SmartHead', 'Alumínio CNC', 'Leve 95g'],
+    inStock: true,
+    rating: 4.7,
+    reviews: 267
+  },
+  {
+    id: 'acc-4',
+    name: 'Garrafa Térmica',
+    brand: 'Camelbak',
+    model: 'Podium Chill 620ml',
+    price: 99.00,
+    image: '/src/assets/img/bikes/Pinarello-Dogma-65.1-Think-2.png',
+    features: ['Isolamento térmico', '620ml capacidade', 'Bico auto-fechante', 'Sem BPA'],
+    inStock: true,
+    rating: 4.9,
+    reviews: 689
+  }
+];
+
+export const apparel = [
+  {
+    id: 'app-1',
+    name: 'Camisa Ciclismo',
+    brand: 'Pearl Izumi',
+    model: 'Select LTD Jersey',
+    price: 279.00,
+    image: '/src/assets/img/bikes/61qlTVSccxL._AC_UF350,350_QL80.png',
+    features: ['Tecido SELECT Transfer', '3 bolsos traseiros', 'Zíper completo', 'Proteção UV 50+'],
+    inStock: true,
+    rating: 4.7,
+    reviews: 298
+  },
+  {
+    id: 'app-2',
+    name: 'Bermuda Ciclismo',
+    brand: 'Specialized',
+    model: 'RBX Sport Bib',
+    price: 399.00,
+    image: '/src/assets/img/bikes/D_NQ_NP_978518-MLB82319281383_02.png',
+    features: ['Bretelle anatômica', 'Forro Body Geometry', 'Compressão graduada', 'Costura plana'],
+    inStock: true,
+    rating: 4.8,
+    reviews: 356
+  },
+  {
+    id: 'app-3',
+    name: 'Jaqueta Corta-Vento',
+    brand: 'Castelli',
+    model: 'Squadra Stretch',
+    price: 549.00,
+    image: '/src/assets/img/bikes/MTBs-full-suspension-para-homens.png',
+    features: ['Tecido Gore Windstopper', 'Compacta dobrável', 'Zíperes ventilação', 'Refletivos 360°'],
+    inStock: false,
+    rating: 4.9,
+    reviews: 187
+  },
+  {
+    id: 'app-4',
+    name: 'Sapatilha MTB',
+    brand: 'Shimano',
+    model: 'ME5 SPD',
+    price: 699.00,
+    image: '/src/assets/img/bikes/Pinarello-Dogma-65.1-Think-2.png',
+    features: ['Sistema SPD', 'Solado Michelin', 'Proteção reforçada', 'Fechamento BOA'],
+    inStock: true,
+    rating: 4.8,
+    reviews: 423
+  }
+];
+
+export const deals = [
+  {
+    id: 'deal-1',
+    name: 'Trek FX 1 (Outlet)',
+    brand: 'Trek',
+    model: 'FX 1 Disc 2023',
+    price: 1899.00,
+    originalPrice: 2699.00,
+    discount: 30,
+    image: '/src/assets/img/bikes/61qlTVSccxL._AC_UF350,350_QL80.png',
+    features: ['Freio a disco', 'Aro 700c', '21 marchas', 'Modelo 2023 - Último estoque'],
+    inStock: true,
+    rating: 4.6,
+    reviews: 167
+  },
+  {
+    id: 'deal-2',
+    name: 'Kit Ferramentas Completo',
+    brand: 'Park Tool',
+    model: 'Essential Tool Kit',
+    price: 899.00,
+    originalPrice: 1299.00,
+    discount: 31,
+    image: '/src/assets/img/bikes/D_NQ_NP_978518-MLB82319281383_02.png',
+    features: ['26 ferramentas', 'Chave torque', 'Maleta organizada', 'Garantia vitalícia'],
+    inStock: true,
+    rating: 4.9,
+    reviews: 542
+  },
+  {
+    id: 'deal-3',
+    name: 'Caloi Elite Carbon (Demo)',
+    brand: 'Caloi',
+    model: 'Elite Carbon Racing',
+    price: 8999.00,
+    originalPrice: 12999.00,
+    discount: 31,
+    image: '/src/assets/img/bikes/MTBs-full-suspension-para-homens.png',
+    features: ['Quadro carbono', 'Grupo Shimano 105', 'Rodas aero', 'Bike de demonstração'],
+    inStock: true,
+    rating: 5.0,
+    reviews: 34
+  },
+  {
+    id: 'deal-4',
+    name: 'Combo Segurança Premium',
+    brand: 'Kryptonite',
+    model: 'New York + Messenger',
+    price: 549.00,
+    originalPrice: 799.00,
+    discount: 31,
+    image: '/src/assets/img/bikes/Pinarello-Dogma-65.1-Think-2.png',
+    features: ['Cadeado NY Lock', 'Cabo reforçado 1.2m', '2 chaves', 'Nível segurança 10/10'],
+    inStock: false,
+    rating: 4.9,
+    reviews: 712
+  }
+];
