@@ -1,56 +1,69 @@
 import { Link } from 'react-router-dom';
 import { Product } from '../types';
+import { getProductImage } from '../services/imagePlaceholder';
+import { FaShoppingCart } from 'react-icons/fa';
+import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const { addToCart } = useCart();
+  const categoryName = typeof product.category === 'string' 
+    ? product.category 
+    : product.category?.name || 'Geral';
+  const imageUrl = getProductImage(product.imageUrl, categoryName, product.name);
+  const parcelas = 12;
+  const valorParcela = product.price / parcelas;
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(product as any, 1);
+  };
+
   return (
-    <div className="card flex flex-col h-full">
-      <div className="card-img-container">
-        {product.imageUrl ? (
+    <Link to={`/product/${product._id}`} className="product-card-link">
+      <div className="product-card">
+        <div className="product-card-image">
           <img 
-            src={product.imageUrl} 
+            src={imageUrl} 
             alt={product.name}
-            className="product-image"
+            loading="lazy"
           />
-        ) : (
-          <div className="h-60 bg-slate-100 flex items-center justify-center text-slate-400">
-            Sem Imagem
-          </div>
-        )}
-        
-        <div className="absolute top-4 right-4">
-          {product.stock > 0 ? (
-            <span className="tag tag-success">Em Estoque</span>
-          ) : (
-            <span className="tag tag-danger">Esgotado</span>
+          {product.stock > 0 && (
+            <span className="badge-stock-new">Em estoque</span>
           )}
         </div>
-      </div>
-      
-      <div className="p-6 flex-1 flex flex-col">
-        <div className="mb-2">
-          <span className="text-sm text-gray-600 font-medium">
-            {product.category?.name || 'Geral'}
-          </span>
-        </div>
-
-        <h3 className="text-lg mb-2 text-gray-800">
-          {product.name}
-        </h3>
         
-        <div className="mt-auto pt-4 flex items-center justify-between">
-          <span className="text-2xl font-extrabold text-primary">
-            R$ {product.price.toFixed(2)}
-          </span>
-          <Link to={`/product/${product._id}`} className="btn btn-outline py-2 px-4 text-sm">
-            Detalhes
-          </Link>
+        <div className="product-card-content">
+          <span className="product-category">{categoryName}</span>
+          
+          <h3 className="product-name">{product.name}</h3>
+          
+          <div className="product-pricing">
+            <span className="product-price">
+              R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </span>
+            <span className="product-installment">
+              {parcelas}x de R$ {valorParcela.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </span>
+          </div>
+          
+          <div className="product-actions">
+            <button 
+              onClick={handleAddToCart}
+              className="btn-add-cart"
+              disabled={product.stock === 0}
+            >
+              <FaShoppingCart />
+              <span>Adicionar</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
