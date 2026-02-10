@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const Order = require('../models/Order');
+const Order = require('../../models/Order');
 const jadlogService = require('../services/jadlog.service');
 
 /**
