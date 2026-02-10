@@ -51,6 +51,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const productRoutes = require('./routes/productRoutes');
 const freteRoutes = require('./src/routes/frete.routes');
 const pedidoRoutes = require('./src/routes/pedido.routes');
+const adminRoutes = require('./src/routes/admin');
 
 // Rotas
 app.use('/api/auth', authRoutes);
@@ -58,6 +59,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api', freteRoutes); // Rotas de frete
 app.use('/api', pedidoRoutes); // Rotas de pedidos
+app.use('/api/admin', adminRoutes); // Rotas administrativas
 
 app.get('/', (req, res) => {
   res.send('Edy-Bike API is running');
