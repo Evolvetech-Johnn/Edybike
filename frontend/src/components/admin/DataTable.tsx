@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import '../styles/admin.css';
+import '../../styles/admin.css';
 
 interface Column {
   key: string;

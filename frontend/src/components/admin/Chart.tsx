@@ -14,7 +14,7 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
-import '../styles/admin.css';
+import '../../styles/admin.css';
 
 interface ChartProps {
   title: string;
