@@ -3,6 +3,7 @@ import { Product } from '../types';
 import { getProductImage } from '../services/imagePlaceholder';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
+import { showSuccessToast } from '../components/ToastProvider';
 
 interface ProductCardProps {
   product: Product;
@@ -21,6 +22,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product as any, 1);
+    showSuccessToast(`${product.name} adicionado ao carrinho!`);
   };
 
   return (

@@ -15,6 +15,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
+import ToastProvider from "./components/ToastProvider";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -24,35 +25,37 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <Router>
+          <ToastProvider />
           <div
             className="App"
             style={{
               display: "flex",
               flexDirection: "column",
               minHeight: "100vh",
-              backgroundColor: "#f3f4f6",
             }}
           >
             <Header />
             <main
-              className="container"
-              style={{ padding: "2rem 1rem", flex: 1 }}
+              style={{ flex: 1 }}
             >
               <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} />
                 <Route path="/product/:id" element={<ProductDetails />} />
+                <Route path="/register" element={<Register />} />
 
                 {/* Category Routes */}
-                <Route path="/bikes/mountain" element={<CategoryMountain />} />
-                <Route path="/bikes/urban" element={<CategoryUrban />} />
-                <Route path="/bikes/electric" element={<CategoryElectric />} />
-                <Route path="/bikes/kids" element={<CategoryKids />} />
-                <Route path="/parts" element={<CategoryParts />} />
-                <Route path="/accessories" element={<CategoryAccessories />} />
-                <Route path="/apparel" element={<CategoryApparel />} />
-                <Route path="/deals" element={<CategoryDeals />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/category/mountain" element={<CategoryMountain />} />
+                <Route path="/category/urban" element={<CategoryUrban />} />
+                <Route path="/category/electric" element={<CategoryElectric />} />
+                <Route path="/category/kids" element={<CategoryKids />} />
+                <Route path="/category/parts" element={<CategoryParts />} />
+                <Route
+                  path="/category/accessories"
+                  element={<CategoryAccessories />}
+                />
+                <Route path="/category/apparel" element={<CategoryApparel />} />
+                <Route path="/category/deals" element={<CategoryDeals />} />
 
                 {/* Admin Routes */}
                 <Route path="/admin/login" element={<Login />} />
@@ -64,8 +67,6 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-                {/* Catch all - Redirect to Home */}
-                <Route path="*" element={<Home />} />
               </Routes>
             </main>
             <Footer />
