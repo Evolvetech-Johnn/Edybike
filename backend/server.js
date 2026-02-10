@@ -50,16 +50,21 @@ const authRoutes = require('./routes/authRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const productRoutes = require('./routes/productRoutes');
 const freteRoutes = require('./src/routes/frete.routes');
+const pedidoRoutes = require('./src/routes/pedido.routes');
 
 // Rotas
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api', freteRoutes); // Rotas de frete
+app.use('/api', pedidoRoutes); // Rotas de pedidos
 
 app.get('/', (req, res) => {
   res.send('Edy-Bike API is running');
 });
+
+// Inicializar Cron Jobs
+const { iniciarCronRastreamento } = require('./src/cron/rastreamento.cron');
 
 // Start Server
 const PORT = process.env.PORT || 5000;

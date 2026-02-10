@@ -1,4 +1,5 @@
 import { useState, useEffect, FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import ProductCard from '../../components/ProductCard';
 import HeroCarousel from '../../components/HeroCarousel';
@@ -8,10 +9,31 @@ import { mockProducts, mockCategories } from '../../data/mockProducts';
 import { Product, Category } from '../../types';
 
 const Home: FC = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState<any[]>([]); // Usando any por enquanto para compatibilidade com mockProducts antigo se diferir do novo type
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [usingMock, setUsingMock] = useState(false);
+
+  // Mapeamento de categorias para rotas
+  const categoryRoutes: Record<string, string> = {
+    'Mountain Bike': '/category/mountain',
+    'Mountain': '/category/mountain',
+    'Urbana': '/category/urban',
+    'Urban': '/category/urban',
+    'Elétrica': '/category/electric',
+    'Electric': '/category/electric',
+    'Kids': '/category/kids',
+    'Infantil': '/category/kids',
+    'Peças': '/category/parts',
+    'Parts': '/category/parts',
+    'Acessórios': '/category/accessories',
+    'Accessories': '/category/accessories',
+    'Vestuário': '/category/apparel',
+    'Apparel': '/category/apparel',
+    'Ofertas': '/category/deals',
+    'Deals': '/category/deals'
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,6 +72,19 @@ const Home: FC = () => {
       }
   };
 
+  const navigateToCategory = (categoryName: string) => {
+    const route = categoryRoutes[categoryName];
+    if (route) {
+      navigate(route);
+    } else {
+      // Fallback: scroll para a categoria na mesma página
+      const categoryId = categories.find(c => c.name === categoryName)?._id;
+      if (categoryId) {
+        scrollToCategory(categoryId);
+      }
+    }
+  };
+
   return (
     <div style={{ backgroundColor: '#f3f4f6' }}>
       
@@ -73,9 +108,9 @@ const Home: FC = () => {
                 {categories.map(cat => (
                     <div 
                         key={cat._id} 
-                        onClick={() => scrollToCategory(cat._id)}
+                        onClick={() => navigateToCategory(cat.name)}
                         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
-                        title={`Ir para ${cat.name}`}
+                        title={`Ver ${cat.name}`}
                     >
                         <div style={{ 
                             width: '100px', 
