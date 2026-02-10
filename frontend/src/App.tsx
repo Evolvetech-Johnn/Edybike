@@ -60,6 +60,14 @@ function App() {
                 {/* Admin Routes */}
                 <Route path="/admin/login" element={<Login />} />
                 <Route
+                  path="/admin/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <DashboardHome />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/admin/*"
                   element={
                     <ProtectedRoute>
