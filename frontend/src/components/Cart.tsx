@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useCart } from '../context/CartContext';
 import { useFrete } from '../hooks/useFrete';
+import { useNavigate } from 'react-router-dom';
 // @ts-ignore - Dados ainda sendo migrados se necessário, mas já estão em TS agora
 import { formatPrice } from '../data/categoryProducts';
 import { FaTimes, FaPlus, FaMinus, FaTrash, FaShoppingBag } from 'react-icons/fa';
@@ -9,6 +10,7 @@ import ShippingOptions from './ShippingOptions';
 import { showSuccessToast, showInfoToast, showErrorToast } from './ToastProvider';
 
 const Cart: FC = () => {
+  const navigate = useNavigate();
   const {
     items,
     isOpen,
@@ -61,6 +63,11 @@ const Cart: FC = () => {
     
     clearCart();
     showSuccessToast('Carrinho limpo com sucesso!');
+  };
+
+  const handleCheckout = () => {
+    closeCart();
+    navigate('/checkout');
   };
 
   return (
@@ -160,12 +167,14 @@ const Cart: FC = () => {
             )}
 
             {opcoesFrete.length > 0 && (
-              <ShippingOptions
-                opcoes={opcoesFrete}
-                selecionado={freteSelecionado}
-                onSelect={selecionarFrete}
-                loading={freteLoading}
-              />
+              <div className="shipping-options-container">
+                <ShippingOptions
+                  opcoes={opcoesFrete}
+                  selecionado={freteSelecionado}
+                  onSelect={selecionarFrete}
+                  loading={freteLoading}
+                />
+              </div>
             )}
           </>
         )}
@@ -195,6 +204,7 @@ const Cart: FC = () => {
             <button 
               className="btn btn-primary"
               style={{ width: '100%', marginTop: '1rem' }}
+              onClick={handleCheckout}
             >
               Finalizar Compra
             </button>

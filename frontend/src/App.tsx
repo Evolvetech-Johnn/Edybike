@@ -26,6 +26,8 @@ import ToastProvider from "./components/ToastProvider";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Checkout from "./pages/public/Checkout";
+import OrderSuccess from "./pages/public/OrderSuccess";
 
 function App() {
   return (
@@ -50,6 +52,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/product/:id" element={<ProductDetails />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order-success/:id" element={<OrderSuccess />} />
 
                 {/* Category Routes */}
                 <Route path="/categoria/:id" element={<CategoryPage />} />
