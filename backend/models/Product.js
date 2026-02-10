@@ -30,6 +30,13 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  // Múltiplas imagens (novo sistema de upload)
+  images: [{
+    url: String,
+    publicId: String,  // Para deletar do Cloudinary
+    isMain: { type: Boolean, default: false },
+    order: { type: Number, default: 0 }
+  }],
   active: {
     type: Boolean,
     default: true

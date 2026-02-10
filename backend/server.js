@@ -47,6 +47,7 @@ const connectDB = async () => {
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const productRoutes = require('./routes/productRoutes');
 const freteRoutes = require('./src/routes/frete.routes');
@@ -55,6 +56,7 @@ const adminRoutes = require('./src/routes/admin');
 
 // Rotas
 app.use('/api/auth', authRoutes);
+app.use('/api/admin/upload', uploadRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api', freteRoutes); // Rotas de frete
