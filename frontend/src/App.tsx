@@ -15,6 +15,9 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import DashboardHome from "./pages/admin/DashboardHome";
 import ProductsList from "./pages/admin/ProductsList";
 import ProductForm from "./pages/admin/ProductForm";
+import InventoryOverview from "./pages/admin/InventoryOverview";
+import StockMovements from "./pages/admin/StockMovements";
+import StockAdjust from "./pages/admin/StockAdjust";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
@@ -91,6 +94,30 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <ProductForm />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/inventory"
+                  element={
+                    <ProtectedRoute>
+                      <InventoryOverview />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/inventory/movements"
+                  element={
+                    <ProtectedRoute>
+                      <StockMovements />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/inventory/adjust/:id"
+                  element={
+                    <ProtectedRoute>
+                      <StockAdjust />
                     </ProtectedRoute>
                   }
                 />
