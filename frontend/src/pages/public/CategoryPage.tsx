@@ -118,10 +118,14 @@ const CategoryPage: FC = () => {
               }}
             >
               <div style={{ position: 'relative', paddingTop: '100%', background: '#f5f5f5' }}>
-                {(product.imageUrl || product.images?.[0]) ? (
+                {/* Safe image rendering check */}
+                {(product.imageUrl || (product.images && product.images.length > 0)) ? (
                   <img
-                    src={product.imageUrl || product.images?.[0]}
+                    src={product.imageUrl || (product.images ? product.images[0] : '')}
                     alt={product.name}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://placehold.co/400x400?text=Sem+Imagem';
+                    }}
                     style={{
                       position: 'absolute',
                       top: 0,
@@ -138,10 +142,15 @@ const CategoryPage: FC = () => {
                       top: '50%',
                       left: '50%',
                       transform: 'translate(-50%, -50%)',
-                      color: '#999'
+                      color: '#999',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexDirection: 'column'
                     }}
                   >
-                    Sem imagem
+                    <span>🖼️</span>
+                    <span style={{ fontSize: '0.8rem' }}>Sem imagem</span>
                   </div>
                 )}
               </div>
