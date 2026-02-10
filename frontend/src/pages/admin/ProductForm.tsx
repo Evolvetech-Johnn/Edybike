@@ -1,6 +1,8 @@
 import { FC, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminLayout from '../../components/admin/AdminLayout';
+import ImageUpload from '../../components/admin/ImageUpload';
+import ImagePreview from '../../components/admin/ImagePreview';
 import { FaSave, FaTimes } from 'react-icons/fa';
 import api from '../../services/api';
 import '../../styles/admin.css';
@@ -8,6 +10,13 @@ import '../../styles/admin.css';
 interface Category {
   _id: string;
   name: string;
+}
+
+interface ProductImage {
+  url: string;
+  publicId: string;
+  isMain: boolean;
+  order: number;
 }
 
 interface ProductFormData {
@@ -38,6 +47,7 @@ const ProductForm: FC = () => {
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
+  const [productImages, setProductImages] = useState<ProductImage[]>([]);
   const [formData, setFormData] = useState<ProductFormData>({
     name: '',
     description: '',
@@ -101,6 +111,11 @@ const ProductForm: FC = () => {
         width: product.width || 0,
         length: product.length || 0
       });
+      
+      // Carregar imagens do produto
+      if (product.images && product.images.length > 0) {
+        setProductImages(product.images);
+      }
     } catch (error) {
       console.error('Erro ao carregar produto:', error);
       alert('Erro ao carregar produto');
@@ -251,10 +266,50 @@ const ProductForm: FC = () => {
                     </select>
                   </div>
                 </div>
+              </div>
+            </div>
 
+            {/* Card: Imagens do Produto */}
+            <div className="admin-table-container" style={{ gridColumn: '1 / -1', padding: 'var(--admin-spacing-lg)' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: 'var(--admin-spacing-lg)' }}>
+                Imagens do Produto
+              </h3>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--admin-spacing-md)' }}>
+                {/* Upload Zone */}
+                <ImageUpload
+                  images={productImages}
+                  productId={id}
+                  onUploadComplete={(newImages) => setProductImages(newImages)}
+                  maxImages={5}
+                />
+
+                {/* Gallery */}
+                {productImages.length > 0 && (
+                  <div className="admin-image-gallery">
+                    {productImages.map((image) => (
+                      <ImagePreview
+                        key={image.publicId}
+                        image={image}
+                        productId={id!}
+                        onDelete={(publicId) => {
+                          setProductImages(prev => prev.filter(img => img.publicId !== publicId));
+                        }}
+                        onSetMain={(publicId) => {
+                          setProductImages(prev => prev.map(img => ({
+                            ...img,
+                            isMain: img.publicId === publicId
+                          })));
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {/* Fallback: URL manual (compatibilidade) */}
                 <div>
-                  <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                    URL da Imagem
+                  <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', color: 'var(--admin-text-muted)' }}>
+                    OU URL da Imagem (legacy)
                   </label>
                   <input
                     type="url"
@@ -263,22 +318,11 @@ const ProductForm: FC = () => {
                     onChange={handleChange}
                     className="admin-filter-input"
                     style={{ width: '100%' }}
-                    placeholder="https://..."
+                    placeholder="https://... (apenas para compatibilidade)"
                   />
-                  {formData.imageUrl && (
-                    <img
-                      src={formData.imageUrl}
-                      alt="Preview"
-                      style={{
-                        marginTop: '0.5rem',
-                        maxWidth: '200px',
-                        borderRadius: 'var(--admin-radius)'
-                      }}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none';
-                      }}
-                    />
-                  )}
+                  <p style={{ fontSize: '0.75rem', color: 'var(--admin-text-muted)', marginTop: '0.25rem' }}>
+                    💡 Use o upload acima para adicionar múltiplas imagens. Este campo é mantido para compatibilidade.
+                  </p>
                 </div>
               </div>
             </div>
