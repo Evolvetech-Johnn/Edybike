@@ -1,8 +1,12 @@
 import { FC } from 'react';
 import { useCart } from '../context/CartContext';
+import { useFrete } from '../hooks/useFrete';
 // @ts-ignore - Dados ainda sendo migrados se necessário, mas já estão em TS agora
 import { formatPrice } from '../data/categoryProducts';
 import { FaTimes, FaPlus, FaMinus, FaTrash, FaShoppingBag } from 'react-icons/fa';
+import CEPInput from './CEPInput';
+import ShippingOptions from './ShippingOptions';
+import { showSuccessToast, showInfoToast, showErrorToast } from './ToastProvider';
 
 const Cart: FC = () => {
   const {
@@ -16,7 +20,48 @@ const Cart: FC = () => {
     getCartCount
   } = useCart();
 
+  const {
+    opcoesFrete,
+    freteSelecionado,
+    loading: freteLoading,
+    erro: freteErro,
+    calcularFrete,
+    selecionarFrete
+  } = useFrete();
+
   if (!isOpen) return null;
+
+  const subtotal = getCartTotal();
+  const valorFrete = freteSelecionado?.valor || 0;
+  const total = subtotal + valorFrete;
+
+  // Calcular peso total (assumir 2kg por item se não tiver peso)
+  const pesoTotal = items.reduce((acc, item) => acc + ((item.weight || 2) * item.quantity), 0);
+
+  const handleCalcularFrete = (cep: string) => {
+    if (items.length === 0) {
+      showErrorToast('Adicione produtos ao carrinho primeiro');
+      return;
+    }
+
+    calcularFrete({
+      cep,
+      pesoTotal,
+      valorTotal: subtotal
+    });
+  };
+
+  const handleRemoverItem = (id: string, nome: string) => {
+    removeFromCart(id);
+    showInfoToast(`${nome} removido do carrinho`);
+  };
+
+  const handleLimparCarrinho = () => {
+    if (items.length === 0) return;
+    
+    clearCart();
+    showSuccessToast('Carrinho limpo com sucesso!');
+  };
 
   return (
     <>
@@ -85,18 +130,13 @@ const Cart: FC = () => {
                       <FaPlus />
                     </button>
                   </div>
-
-                  {/* Subtotal */}
-                  <p className="cart-item-subtotal">
-                    Subtotal: <strong>{formatPrice(item.price * item.quantity)}</strong>
-                  </p>
                 </div>
 
                 {/* Remove Button */}
                 <button
                   className="cart-remove-btn"
-                  onClick={() => removeFromCart(item.id)}
-                  aria-label="Remover item"
+                  onClick={() => handleRemoverItem(item.id, item.name)}
+                  aria-label="Remover produto"
                 >
                   <FaTrash />
                 </button>
@@ -105,24 +145,63 @@ const Cart: FC = () => {
           )}
         </div>
 
-        {/* Footer */}
+        {/* Frete Section */}
+        {items.length > 0 && (
+          <>
+            <CEPInput 
+              onCalculate={handleCalcularFrete}
+              loading={freteLoading}
+            />
+            
+            {freteErro && (
+              <div className="frete-erro">
+                <p>{freteErro}</p>
+              </div>
+            )}
+
+            {opcoesFrete.length > 0 && (
+              <ShippingOptions
+                opcoes={opcoesFrete}
+                selecionado={freteSelecionado}
+                onSelect={selecionarFrete}
+                loading={freteLoading}
+              />
+            )}
+          </>
+        )}
+
+        {/* Footer/Summary */}
         {items.length > 0 && (
           <div className="cart-footer">
-            <div className="cart-total">
-              <span style={{ fontSize: '1.1rem', fontWeight: '600' }}>Total:</span>
-              <span style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--primary)' }}>
-                {formatPrice(getCartTotal())}
-              </span>
+            <div className="order-summary">
+              <div className="summary-line">
+                <span>Subtotal ({items.length} {items.length === 1 ? 'item' : 'itens'})</span>
+                <span>R$ {subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+              
+              {freteSelecionado && (
+                <div className="summary-line">
+                  <span>Frete ({freteSelecionado.transportadora})</span>
+                  <span>R$ {valorFrete.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                </div>
+              )}
+              
+              <div className="summary-total">
+                <span>Total</span>
+                <span>R$ {total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
             </div>
 
-            <button className="btn btn-primary" style={{ width: '100%', marginBottom: '0.75rem' }}>
-              <FaShoppingBag /> Finalizar Compra
+            <button 
+              className="btn btn-primary"
+              style={{ width: '100%', marginTop: '1rem' }}
+            >
+              Finalizar Compra
             </button>
 
             <button 
-              className="btn btn-outline" 
-              style={{ width: '100%' }}
-              onClick={clearCart}
+              className="btn-clear-cart"
+              onClick={handleLimparCarrinho}
             >
               <FaTrash /> Limpar Carrinho
             </button>
