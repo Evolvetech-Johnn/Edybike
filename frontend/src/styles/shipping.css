@@ -1,0 +1,252 @@
+/* ==========================================
+   SHIPPING COMPONENT STYLES
+   ========================================== */
+
+.shipping-options-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+}
+
+.shipping-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.shipping-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #1e40af;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.shipping-loading p {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.shipping-empty {
+  color: #6b7280;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.95rem;
+}
+
+.shipping-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.shipping-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.shipping-option:hover {
+  border-color: #1e40af;
+  background: #f8faff;
+  transform: translateX(4px);
+}
+
+.shipping-option.selected {
+  border-color: #1e40af;
+  background: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
+
+.shipping-option input[type="radio"] {
+  margin-top: 0.25rem;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: #1e40af;
+}
+
+.option-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.option-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.option-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.option-name strong {
+  font-size: 1rem;
+  color: #111827;
+  font-weight: 600;
+}
+
+.option-type {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.option-header .price {
+  color: #1e40af;
+  font-size: 1.25rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.option-delivery {
+  color: #059669;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.option-delivery::before {
+  content: '🚚';
+  font-size: 1rem;
+}
+
+.shipping-info {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.shipping-info p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* CEP Input Component */
+.cep-input-container {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: white;
+  border-radius: 10px;
+  border: 2px solid #e5e7eb;
+}
+
+.cep-input-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.cep-input-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.cep-input {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.cep-input:focus {
+  outline: none;
+  border-color: #1e40af;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
+
+.cep-input.error {
+  border-color: #ef4444;
+}
+
+.btn-calculate-shipping {
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-calculate-shipping:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(30, 64, 175, 0.3);
+}
+
+.btn-calculate-shipping:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.cep-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.cep-hint {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .cep-input-group {
+    flex-direction: column;
+  }
+  
+  .btn-calculate-shipping {
+    width: 100%;
+  }
+  
+  .option-header {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .option-header .price {
+    font-size: 1.5rem;
+  }
+}
