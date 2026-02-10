@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import bike1 from '../assets/img/bikes/Bicicleta Oggi Big Wheel 7.1 aro 29 18v - Shimano Alivio- Deore 2022.png';
 import bike2 from '../assets/img/bikes/bicicleta_caloi_explorer_comp_Aro 29 18V - Shimano  Alivio - 2021.png';
 import bike3 from '../assets/img/bikes/bicicleta_eletrica_oggi_big_wheel 8.3 Aro 29 - Shimano Deore 11V - 2022.png';
@@ -15,6 +16,7 @@ interface Slide {
 }
 
 const HeroCarousel: FC = () => {
+  const navigate = useNavigate();
   const slides: Slide[] = [
     {
       id: 1,
@@ -101,7 +103,10 @@ const HeroCarousel: FC = () => {
               <div className="slide-text fade-in">
                 <h1 className="slide-title">{slide.title}</h1>
                 <p className="slide-subtitle">{slide.subtitle}</p>
-                <button className="btn btn-primary hover-lift">
+                <button 
+                  className="btn btn-primary hover-lift"
+                  onClick={() => navigate('/products')}
+                >
                   {slide.cta}
                 </button>
               </div>

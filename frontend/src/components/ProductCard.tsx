@@ -10,7 +10,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { addToCart } = useCart();
+  const { addToCart, openCart } = useCart();
   const categoryName = typeof product.category === 'string' 
     ? product.category 
     : product.category?.name || 'Geral';
@@ -23,7 +23,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product as any, 1);
-    showSuccessToast(`${product.name} adicionado ao carrinho!`);
+    openCart(); // Open cart immediately for 3-click flow
+    // showSuccessToast(`${product.name} adicionado ao carrinho!`); // Optional: toast might be redundant if drawer opens
   };
 
   return (

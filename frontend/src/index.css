@@ -600,6 +600,7 @@ html {
   transform: scale(1.1);
 }
 
+/* Darker overlay for better text contrast */
 .slide-overlay {
   position: absolute;
   top: 0;
@@ -608,8 +609,8 @@ html {
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(0, 102, 204, 0.15) 0%,
-    rgba(0, 82, 163, 0.25) 100%
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 102, 204, 0.4) 100%
   );
   z-index: 2;
 }
@@ -633,7 +634,8 @@ html {
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.1;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  color: #ffffff; /* FORCE WHITE to override global h1 */
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
   letter-spacing: -0.03em;
 }
 
@@ -641,8 +643,10 @@ html {
   font-size: clamp(1.1rem, 2vw, 1.5rem);
   margin-bottom: 2rem;
   line-height: 1.5;
-  opacity: 0.95;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  color: #f3f4f6;
+  font-weight: 500;
+  opacity: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
 /* Carousel Arrows */
