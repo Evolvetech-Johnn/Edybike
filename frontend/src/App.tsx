@@ -22,6 +22,7 @@ import OrdersList from "./pages/admin/OrdersList";
 import OrderDetailsPage from "./pages/admin/OrderDetailsPage";
 import PromotionsList from "./pages/admin/PromotionsList";
 import PromotionForm from "./pages/admin/PromotionForm";
+import AnalyticsDashboard from "./pages/admin/AnalyticsDashboard";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
@@ -146,6 +147,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <PromotionForm />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/analytics"
+                  element={
+                    <ProtectedRoute>
+                      <AnalyticsDashboard />
                     </ProtectedRoute>
                   }
                 />
