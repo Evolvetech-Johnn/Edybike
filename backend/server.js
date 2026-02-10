@@ -4,7 +4,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const dotenv = require('dotenv');
 
-dotenv.config();
+// Carregar .env apenas em desenvolvimento
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
 
 const app = express();
 
