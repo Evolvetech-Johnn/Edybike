@@ -5,7 +5,37 @@ import PermissionsMatrix from '../../components/admin/PermissionsMatrix';
 import api from '../../services/api';
 import '../../styles/admin.css';
 
-const DEFAULT_PERMISSIONS = {
+interface Permission {
+  view?: boolean;
+  create?: boolean;
+  edit?: boolean;
+  delete?: boolean;
+  adjust?: boolean;
+  update?: boolean;
+  cancel?: boolean;
+}
+
+interface Permissions {
+  products?: Permission;
+  inventory?: Permission;
+  orders?: Permission;
+  promotions?: Permission;
+  analytics?: Permission;
+  users?: Permission;
+  settings?: Permission;
+}
+
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: string;
+  permissions: Permissions;
+  status: string;
+}
+
+const DEFAULT_PERMISSIONS: Record<string, Permissions> = {
   super_admin: {
     products: { view: true, create: true, edit: true, delete: true },
     inventory: { view: true, adjust: true },
@@ -38,13 +68,13 @@ const DEFAULT_PERMISSIONS = {
 const UserForm: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
     role: 'admin',
-    permissions: DEFAULT_PERMISSIONS.admin,
+    permissions: DEFAULT_PERMISSIONS.admin || {},
     status: 'ativo'
   });
   const [loading, setLoading] = useState(false);
