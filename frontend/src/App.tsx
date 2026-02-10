@@ -18,6 +18,8 @@ import ProductForm from "./pages/admin/ProductForm";
 import InventoryOverview from "./pages/admin/InventoryOverview";
 import StockMovements from "./pages/admin/StockMovements";
 import StockAdjust from "./pages/admin/StockAdjust";
+import OrdersList from "./pages/admin/OrdersList";
+import OrderDetailsPage from "./pages/admin/OrderDetailsPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
