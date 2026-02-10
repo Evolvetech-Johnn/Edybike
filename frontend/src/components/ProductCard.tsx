@@ -16,7 +16,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : product.category?.name || 'Geral';
   const imageUrl = getProductImage(product.imageUrl, categoryName, product.name);
   const parcelas = 12;
-  const valorParcela = product.price / parcelas;
+  /* ... */
+  const pixPrice = product.price * 0.95; // 5% de desconto
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -26,41 +27,44 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Link to={`/product/${product._id}`} className="product-card-link">
+    <Link to={`/product/${product._id}`} className="product-card-link" style={{ textDecoration: 'none' }}>
       <div className="product-card">
-        <div className="product-card-image">
+        <div className="product-card-image" style={{ marginBottom: '1rem', position: 'relative' }}>
           <img 
             src={imageUrl} 
             alt={product.name}
             loading="lazy"
+            style={{ width: '100%', height: '200px', objectFit: 'contain' }}
           />
-          {product.stock > 0 && (
-            <span className="badge-stock-new">Em estoque</span>
+          {product.stock > 0 && product.price < 500 && (
+             <span className="tag tag-danger" style={{ position: 'absolute', top: 0, left: 0, fontSize: '0.7rem' }}>Promoção</span>
           )}
         </div>
         
-        <div className="product-card-content">
-          <span className="product-category">{categoryName}</span>
+        <div className="product-card-content" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+          <h3 className="product-name" style={{ fontSize: '0.95rem', color: '#4b5563', marginBottom: '0.5rem', fontWeight: 400, height: '40px', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+            {product.name}
+          </h3>
           
-          <h3 className="product-name">{product.name}</h3>
-          
-          <div className="product-pricing">
+          <div className="product-pricing" style={{ marginTop: 'auto' }}>
             <span className="product-price">
               R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
             <span className="product-installment">
-              {parcelas}x de R$ {valorParcela.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              ou 10x de R$ {valorParcela.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
+            <div className="pix-price-tag">
+                <span className="pix-highlight">R$ {pixPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> no Pix
+            </div>
           </div>
           
-          <div className="product-actions">
+          <div className="product-actions" style={{ marginTop: '1rem' }}>
             <button 
               onClick={handleAddToCart}
-              className="btn-add-cart"
+              className="btn btn-success"
               disabled={product.stock === 0}
             >
-              <FaShoppingCart />
-              <span>Adicionar</span>
+              ADICIONAR AO CARRINHO
             </button>
           </div>
         </div>

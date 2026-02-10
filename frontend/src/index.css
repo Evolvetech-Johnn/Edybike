@@ -792,12 +792,168 @@ html {
    SHOPPING CART
    ======================================== */
 
-/* Cart Button (Header) */
-.cart-button {
-  position: relative;
-  background: transparent;
-  border: none;
-  color: var(--primary);
+/* ... existing code ... */
+
+/* ========================================
+   REFERENCE SITE STYLES (Refinements)
+   ======================================== */
+
+/* Green Button for "Adicionar ao Carrinho" */
+.btn-success {
+    background: linear-gradient(135deg, #00C853 0%, #009624 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+    width: 100%;
+    border-radius: 4px; /* More square as per reference */
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 200, 83, 0.4);
+    background: linear-gradient(135deg, #00E676 0%, #00C853 100%);
+}
+
+/* Product Card Updates */
+.product-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px; /* Slightly less rounded */
+    background: white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+
+.product-price {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #00C853; /* Green Price */
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.product-installment {
+    color: #6b7280;
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.pix-price-tag {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.pix-highlight {
+    color: #00C853;
+}
+
+/* Categories Row */
+.category-row {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    padding: 1rem 0.5rem;
+    justify-content: center; /* Centered like reference */
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 100px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.category-item:hover {
+    transform: translateY(-5px);
+}
+
+.category-icon-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.category-item img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+.category-label {
+    font-weight: 700;
+    color: #1f2937;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Banner Grids */
+.banner-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.banner-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media(min-width: 1024px) {
+    .banner-grid-3 {
+        grid-template-columns: 1.2fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+    }
+    .banner-grid-3 .big-banner {
+        grid-row: span 2;
+    }
+}
+
+.promo-banner {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+    height: 100%;
+    min-height: 250px;
+}
+
+.promo-banner:hover {
+    transform: scale(1.02);
+}
+
+.promo-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
   cursor: pointer;
   padding: 0.5rem;
   transition: all var(--transition-base);

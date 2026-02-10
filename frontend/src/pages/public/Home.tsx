@@ -59,25 +59,65 @@ const Home: FC = () => {
       <HeroCarousel />
       <BenefitsBar />
 
-      <div className="container">
+      <div className="container" style={{ marginTop: '2rem' }}>
         
         {usingMock && (
-            <div className="tag tag-neutral" style={{ marginTop: '1rem', marginBottom: '2rem' }}>
+            <div className="tag tag-neutral" style={{ marginBottom: '2rem' }}>
                 Ambiente de Demonstração
             </div>
         )}
 
         {/* =========================================
+            CATEGORIES ROW (Restored & Styled)
+            ========================================= */}
+        <section className="mb-12">
+            <div className="category-row">
+                {categories.map(cat => (
+                    <div 
+                        key={cat._id} 
+                        className="category-item"
+                        onClick={() => navigateToCategory(cat._id)}
+                        title={`Ver ${cat.name}`}
+                    >
+                        <div className="category-icon-box">
+                             {/* Placeholder icons based on name - In production use real icons/images */}
+                             <span style={{ fontSize: '2rem', color: '#1f2937' }}>
+                                {['Bicicletas', 'Mountain Bike'].includes(cat.name) ? '🚲' : 
+                                 ['Capacetes', 'Acessórios'].includes(cat.name) ? '⛑️' : 
+                                 ['Peças', 'Componentes'].includes(cat.name) ? '⚙️' : 
+                                 ['Vestuário'].includes(cat.name) ? '👕' : '📦'}
+                             </span>
+                        </div>
+                        <span className="category-label">{cat.name}</span>
+                    </div>
+                ))}
+                 {/* Hardcoded extras to fill row like reference */}
+                 <div className="category-item" onClick={() => navigate('/')}>
+                    <div className="category-icon-box"><span>🔧</span></div>
+                    <span className="category-label">Oficina</span>
+                 </div>
+                 <div className="category-item" onClick={() => navigate('/')}>
+                    <div className="category-icon-box"><span>🛡️</span></div>
+                    <span className="category-label">Seguros</span>
+                 </div>
+            </div>
+        </section>
+
+
+        {/* =========================================
             SHELF 1: DESTAQUES / LANÇAMENTOS
             ========================================= */}
-        <section className="mb-12" style={{ marginTop: '3rem' }}>
+        <section className="mb-12">
              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid #e5e7eb', paddingBottom: '1rem' }}>
                 <h3 className="section-title" style={{ fontSize: '1.75rem', margin: 0, color: 'var(--accent)' }}>
-                    Destaques da Semana
+                    Bicicletas Oggi
                 </h3>
+                <button className="btn btn-outline" style={{ border: 'none', color: '#6b7280', fontSize: '0.9rem' }} onClick={() => navigate('/')}>
+                    ver mais &gt;
+                </button>
              </div>
              
-             <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '2rem' }}>
+             <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '2rem' }}>
                  {products.slice(0, 4).map(product => (
                      <ProductCard key={product._id} product={product} />
                  ))}
@@ -85,67 +125,47 @@ const Home: FC = () => {
         </section>
 
         {/* =========================================
-            BANNERS PROMOCIONAIS 1
+            BANNERS GRID 2 (Reference Image 3)
             ========================================= */}
-        <section className="mb-12" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-            <div className="hover-lift" style={{ 
-                height: '250px', 
-                background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images.unsplash.com/photo-1549487922-446759c258d4?auto=format&fit=crop&q=80&w=800)', 
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '8px', 
-                display: 'flex', 
-                flexDirection: 'column',
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                color: 'white',
-                padding: '2rem',
-                textAlign: 'center'
-            }}>
-                <h3 style={{ color: 'white', marginBottom: '1rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>Linha Infantil</h3>
-                <p style={{ marginBottom: '1.5rem', opacity: 0.9 }}>Diversão garantida para os pequenos</p>
-                <button className="btn btn-primary" onClick={() => navigate('/')}>Conferir Ofertas</button>
+        <section className="mb-12 banner-grid-2">
+            <div className="promo-banner" style={{ background: '#111827', display: 'flex', alignItems: 'center', padding: '2rem' }}>
+                <div style={{ flex: 1 }}>
+                     <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '0.5rem' }}>Pedivela GTA</h3>
+                     <p style={{ color: '#00C853', fontSize: '1.5rem', fontWeight: 800 }}>R$ 249,00</p>
+                     <button className="btn btn-success" style={{ width: 'auto', marginTop: '1rem', padding: '0.5rem 1.5rem' }}>Compre já!</button>
+                </div>
+                 <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                    <img src="https://images.unsplash.com/photo-1549487922-446759c258d4?auto=format&fit=crop&q=80&w=300" alt="Pedivela" style={{ width: '150px', height: '150px', objectFit: 'contain', borderRadius: '50%', border: '4px solid #374151' }} />
+                </div>
             </div>
             
-            <div className="hover-lift" style={{ 
-                height: '250px', 
-                background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images.unsplash.com/photo-1563214227-814a6012059c?auto=format&fit=crop&q=80&w=800)', 
-                backgroundSize: 'cover', 
-                backgroundPosition: 'center',
-                borderRadius: '8px', 
-                display: 'flex', 
-                flexDirection: 'column',
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                color: 'white',
-                padding: '2rem',
-                textAlign: 'center'
-            }}>
-                 <h3 style={{ color: 'white', marginBottom: '1rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>Peças de Reposição</h3>
-                 <p style={{ marginBottom: '1.5rem', opacity: 0.9 }}>Mantenha sua bike sempre nova</p>
-                 <button className="btn btn-outline" style={{ color: 'white', borderColor: 'white' }} onClick={() => navigate('/')}>Ver Catálogo</button>
+             <div className="promo-banner" style={{ background: '#111827', display: 'flex', alignItems: 'center', padding: '2rem' }}>
+                <div style={{ flex: 1 }}>
+                     <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '0.5rem' }}>Selim Brutus</h3>
+                     <p style={{ color: '#00C853', fontSize: '1.5rem', fontWeight: 800 }}>R$ 89,00</p>
+                     <button className="btn btn-success" style={{ width: 'auto', marginTop: '1rem', padding: '0.5rem 1.5rem' }}>Compre já!</button>
+                </div>
+                 <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                    <img src="https://images.unsplash.com/photo-1598517596541-60292b322a49?auto=format&fit=crop&q=80&w=300" alt="Selim" style={{ width: '150px', height: '150px', objectFit: 'contain', borderRadius: '50%', border: '4px solid #374151' }} />
+                </div>
             </div>
         </section>
 
          {/* =========================================
-             SHELF 2: CATEGORIA ESPECÍFICA (Ex: Mountain Bike)
+             SHELF 2: CAPACETES ABSOLUTE (Reference Image 4)
              ========================================= */}
          {categories.length > 0 && (
             <section className="mb-12">
                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid #e5e7eb', paddingBottom: '1rem' }}>
                     <h3 className="section-title" style={{ fontSize: '1.75rem', margin: 0, color: 'var(--accent)' }}>
-                        {categories[0].name}
+                        Capacetes Absolute
                     </h3>
-                    <button 
-                        className="btn btn-outline" 
-                        style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
-                        onClick={() => navigateToCategory(categories[0]._id)}
-                    >
-                        Ver Todos
+                    <button className="btn btn-outline" style={{ border: 'none', color: '#6b7280', fontSize: '0.9rem' }} onClick={() => navigateToCategory(categories[0]._id)}>
+                         ver mais &gt;
                     </button>
                  </div>
                  
-                 <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '2rem' }}>
+                 <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '2rem' }}>
                      {getProductsByCategory(categories[0]._id).map(product => (
                          <ProductCard key={product._id} product={product} />
                      ))}
@@ -154,38 +174,45 @@ const Home: FC = () => {
          )}
 
         {/* =========================================
-            FULL WIDTH BANNER
+            BANNERS GRID 3 (Mosaic - Reference Image 5)
             ========================================= */}
-        <section className="mb-12 hover-glow">
-            <div style={{ 
-                borderRadius: '12px', 
-                overflow: 'hidden', 
-                position: 'relative',
-                height: '300px',
+        <section className="mb-12 banner-grid-3">
+             {/* Big Left Banner */}
+            <div className="promo-banner big-banner hover-lift" style={{ 
+                minHeight: '400px',
+                backgroundImage: 'url(https://images.unsplash.com/photo-1628198758804-03102434526d?auto=format&fit=crop&q=80&w=800)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                display: 'flex', alignItems: 'flex-end', padding: '2rem'
             }}>
-                <img 
-                    src="https://images.unsplash.com/photo-1558507306-4b13d2a01344?auto=format&fit=crop&q=80&w=1200" 
-                    alt="Promoção Especial" 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-                <div style={{ 
-                    position: 'absolute', 
-                    top: 0, left: 0, width: '100%', height: '100%',
-                    background: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    padding: '3rem'
-                }}>
-                    <h2 style={{ color: 'white', fontSize: '2.5rem', marginBottom: '1rem', maxWidth: '600px' }}>
-                        Equipamentos Profissionais
-                    </h2>
-                    <p style={{ color: '#d1d5db', fontSize: '1.2rem', marginBottom: '2rem', maxWidth: '500px' }}>
-                        Eleve seu desempenho com nossa linha de acessórios premium.
-                    </p>
-                    <div>
-                        <button className="btn btn-primary" onClick={() => navigate('/')}>Comprar Agora</button>
-                    </div>
+                <div style={{ background: 'rgba(255,165,0,0.9)', padding: '1rem 2rem', borderRadius: '4px' }}>
+                     <h3 style={{ color: 'white', margin: 0, fontSize: '1.5rem' }}>Bikes Infantis</h3>
+                </div>
+            </div>
+
+            {/* Top Right */}
+             <div className="promo-banner hover-lift" style={{ 
+                minHeight: '200px',
+                backgroundImage: 'url(https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?auto=format&fit=crop&q=80&w=600)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                display: 'flex', alignItems: 'flex-end', padding: '2rem'
+            }}>
+                <div style={{ background: 'rgba(255,165,0,0.9)', padding: '0.5rem 1.5rem', borderRadius: '4px' }}>
+                     <h3 style={{ color: 'white', margin: 0, fontSize: '1.2rem' }}>Freeride</h3>
+                </div>
+            </div>
+
+            {/* Bottom Right */}
+            <div className="promo-banner hover-lift" style={{ 
+                minHeight: '200px',
+                backgroundImage: 'url(https://images.unsplash.com/photo-1576435728678-be95f39e8ab8?auto=format&fit=crop&q=80&w=600)',
+                 backgroundSize: 'cover',
+                 backgroundPosition: 'center',
+                 display: 'flex', alignItems: 'flex-end', padding: '2rem'
+            }}>
+                 <div style={{ background: 'rgba(255,165,0,0.9)', padding: '0.5rem 1.5rem', borderRadius: '4px' }}>
+                     <h3 style={{ color: 'white', margin: 0, fontSize: '1.2rem' }}>Mountain Bike</h3>
                 </div>
             </div>
         </section>
@@ -193,7 +220,7 @@ const Home: FC = () => {
          {/* =========================================
              SHELF 3: OUTRAS CATEGORIAS
              ========================================= */}
-         {categories.slice(1, 3).map(cat => {
+         {categories.slice(1, 4).map(cat => {
              const catProducts = getProductsByCategory(cat._id);
              if (catProducts.length === 0) return null;
 
@@ -203,16 +230,12 @@ const Home: FC = () => {
                         <h3 className="section-title" style={{ fontSize: '1.75rem', margin: 0, color: 'var(--accent)' }}>
                             {cat.name}
                         </h3>
-                        <button 
-                            className="btn btn-outline" 
-                            style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
-                            onClick={() => navigateToCategory(cat._id)}
-                        >
-                            Ver Todos
+                         <button className="btn btn-outline" style={{ border: 'none', color: '#6b7280', fontSize: '0.9rem' }} onClick={() => navigateToCategory(cat._id)}>
+                             ver mais &gt;
                         </button>
                      </div>
                      
-                     <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '2rem' }}>
+                     <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '2rem' }}>
                          {catProducts.map(product => (
                              <ProductCard key={product._id} product={product} />
                          ))}
