@@ -1,7 +1,8 @@
-import { Product } from './product';
+import { Product } from './index';
 
 export interface CartItem extends Product {
   quantity: number;
+  weight?: number; // Peso em kg para cálculo de frete
 }
 
 export interface CartState {

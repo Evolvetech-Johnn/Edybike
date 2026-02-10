@@ -47,12 +47,15 @@ const connectDB = async () => {
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
-const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const productRoutes = require('./routes/productRoutes');
+const freteRoutes = require('./src/routes/frete.routes');
 
+// Rotas
 app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api', freteRoutes); // Rotas de frete
 
 app.get('/', (req, res) => {
   res.send('Edy-Bike API is running');
