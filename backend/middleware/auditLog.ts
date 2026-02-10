@@ -3,32 +3,43 @@
  * Registra ações administrativas importantes
  */
 
-const AuditLog = require('../models/AuditLog');
+import { Response, NextFunction } from 'express';
+// @ts-ignore - AuditLog model ainda não migrado ou precisamos de stub
+import AuditLog from '../models/AuditLog'; 
+import { AuthRequest } from './authMiddleware';
+
+interface AuditMetadata {
+  method: string;
+  path: string;
+  query: any;
+}
 
 /**
  * Middleware factory para criar log de ações
  * @param {string} action - Ação realizada (create, update, delete, etc)
  * @param {string} entity - Entidade afetada (product, order, etc)
  */
-const auditLog = (action, entity) => {
-  return async (req, res, next) => {
+const auditLog = (action: string, entity: string) => {
+  return async (req: AuthRequest, res: Response, next: NextFunction) => {
     // Guardar resposta original
+    // @ts-ignore - bind type mismatch complex to fix directly without complex overrides
     const originalJson = res.json.bind(res);
     
     // Override res.json para capturar resposta
-    res.json = function(data) {
+    // @ts-ignore - override express response method
+    res.json = function(data: any) {
       // Apenas logar se request foi bem sucedido
       if (res.statusCode >= 200 && res.statusCode < 300) {
         // Executar log de forma assíncrona (não bloquear resposta)
         setImmediate(async () => {
           try {
             await AuditLog.log({
-              userId: req.user?._id || req.user?.id,
+              userId: req.user?._id || (req.user as any)?.id,
               action,
               entity,
               entityId: req.params?.id || data?._id || data?.id,
               changes: extractChanges(req.body, req.method),
-              ip: req.ip || req.connection.remoteAddress,
+              ip: req.ip || req.connection?.remoteAddress,
               userAgent: req.get('user-agent'),
               description: generateDescription(action, entity, req),
               metadata: {
@@ -52,7 +63,7 @@ const auditLog = (action, entity) => {
 };
 
 // Helper: extrair mudanças relevantes do body
-function extractChanges(body, method) {
+function extractChanges(body: any, method: string) {
   if (method === 'DELETE') {
     return { deleted: true };
   }
@@ -69,7 +80,7 @@ function extractChanges(body, method) {
 }
 
 // Helper: sanitizar dados sensíveis
-function sanitizeData(data) {
+function sanitizeData(data: any) {
   const sanitized = { ...data };
   
   // Remover campos sensíveis
@@ -81,9 +92,9 @@ function sanitizeData(data) {
 }
 
 // Helper: gerar descrição legível
-function generateDescription(action, entity, req) {
+function generateDescription(action: string, entity: string, req: AuthRequest) {
   const user = req.user?.name || req.user?.email || 'Admin';
-  const entityMap = {
+  const entityMap: Record<string, string> = {
     product: 'produto',
     order: 'pedido',
     category: 'categoria',
@@ -93,7 +104,7 @@ function generateDescription(action, entity, req) {
     stock: 'estoque'
   };
   
-  const actionMap = {
+  const actionMap: Record<string, string> = {
     create: 'criou',
     update: 'atualizou',
     delete: 'deletou',
@@ -111,15 +122,15 @@ function generateDescription(action, entity, req) {
 }
 
 // Middleware simplificado: apenas registrar acesso
-const logAccess = async (req, res, next) => {
+const logAccess = async (req: AuthRequest, res: Response, next: NextFunction) => {
   if (req.user && req.user.isAdmin && req.user.isAdmin()) {
     setImmediate(async () => {
       try {
         await AuditLog.log({
-          userId: req.user._id || req.user.id,
+          userId: req.user?._id || (req.user as any)?.id,
           action: 'access',
           entity: 'system',
-          ip: req.ip || req.connection.remoteAddress,
+          ip: req.ip || req.connection?.remoteAddress,
           userAgent: req.get('user-agent'),
           description: `Acessou ${req.path}`,
           metadata: {
@@ -135,7 +146,7 @@ const logAccess = async (req, res, next) => {
   next();
 };
 
-module.exports = {
+export {
   auditLog,
   logAccess
 };

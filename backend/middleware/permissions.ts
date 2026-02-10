@@ -1,10 +1,13 @@
+import { Response, NextFunction } from 'express';
+import { AuthRequest } from './authMiddleware';
+
 /**
  * Middleware para verificar permissões granulares de admin
  * Usa após authMiddleware para validar permissões específicas
  */
 
-const checkPermission = (entity, action) => {
-  return (req, res, next) => {
+const checkPermission = (entity: string, action: string) => {
+  return (req: AuthRequest, res: Response, next: NextFunction) => {
     // Verificar se usuário está autenticado (deve vir do authMiddleware)
     if (!req.user) {
       return res.status(401).json({ message: 'Não autenticado' });
@@ -32,7 +35,7 @@ const checkPermission = (entity, action) => {
 };
 
 // Middleware simplificado: apenas verificar se é admin (qualquer nível)
-const requireAdmin = (req, res, next) => {
+const requireAdmin = (req: AuthRequest, res: Response, next: NextFunction) => {
   if (!req.user) {
     return res.status(401).json({ message: 'Não autenticado' });
   }
@@ -46,7 +49,7 @@ const requireAdmin = (req, res, next) => {
 };
 
 // Middleware: apenas super_admin
-const requireSuperAdmin = (req, res, next) => {
+const requireSuperAdmin = (req: AuthRequest, res: Response, next: NextFunction) => {
   if (!req.user) {
     return res.status(401).json({ message: 'Não autenticado' });
   }
@@ -58,7 +61,7 @@ const requireSuperAdmin = (req, res, next) => {
   next();
 };
 
-module.exports = {
+export {
   checkPermission,
   requireAdmin,
   requireSuperAdmin

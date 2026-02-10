@@ -1,14 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/public/Home";
 import ProductDetails from "./pages/public/ProductDetails";
-import CategoryMountain from "./pages/public/CategoryMountain";
-import CategoryUrban from "./pages/public/CategoryUrban";
-import CategoryElectric from "./pages/public/CategoryElectric";
-import CategoryKids from "./pages/public/CategoryKids";
-import CategoryParts from "./pages/public/CategoryParts";
-import CategoryAccessories from "./pages/public/CategoryAccessories";
-import CategoryApparel from "./pages/public/CategoryApparel";
-import CategoryDeals from "./pages/public/CategoryDeals";
 import CategoryPage from "./pages/public/CategoryPage";
 import Login from "./pages/admin/Login";
 import Register from "./pages/public/Register";
@@ -61,17 +53,6 @@ function App() {
 
                 {/* Category Routes */}
                 <Route path="/categoria/:id" element={<CategoryPage />} />
-                <Route path="/category/mountain" element={<CategoryMountain />} />
-                <Route path="/category/urban" element={<CategoryUrban />} />
-                <Route path="/category/electric" element={<CategoryElectric />} />
-                <Route path="/category/kids" element={<CategoryKids />} />
-                <Route path="/category/parts" element={<CategoryParts />} />
-                <Route
-                  path="/category/accessories"
-                  element={<CategoryAccessories />}
-                />
-                <Route path="/category/apparel" element={<CategoryApparel />} />
-                <Route path="/category/deals" element={<CategoryDeals />} />
 
                 {/* Admin Routes */}
                 <Route path="/admin/login" element={<Login />} />

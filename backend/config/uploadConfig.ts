@@ -1,6 +1,6 @@
-const multer = require('multer');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const cloudinary = require('cloudinary').v2;
+import multer from 'multer';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 
 // Configurar Cloudinary
 cloudinary.config({
@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
     folder: 'edy-bike/products',
     allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
     transformation: [{ width: 1200, height: 1200, crop: 'limit', quality: 'auto' }]
-  }
+  } as any // Casting necessário pois params do multer-storage-cloudinary tem tipos estritos
 });
 
 const upload = multer({
@@ -27,10 +27,10 @@ const upload = multer({
   },
   fileFilter: (req, file, cb) => {
     if (!file.mimetype.startsWith('image/')) {
-      return cb(new Error('Apenas imagens são permitidas'), false);
+      return cb(new Error('Apenas imagens são permitidas'));
     }
     cb(null, true);
   }
 });
 
-module.exports = { upload, cloudinary };
+export { upload, cloudinary };

@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { upload } from '../config/uploadConfig'; // Agora importando do .ts
+import * as uploadController from '../controllers/admin/upload.controller'; // .ts
+import { protect, admin } from '../middleware/authMiddleware'; // .ts
+
 const router = express.Router();
-const { upload } = require('../config/uploadConfig');
-const uploadController = require('../controllers/admin/upload.controller');
-const { protect, admin } = require('../middleware/authMiddleware');
 
 // Todas as rotas requerem autenticação e admin
 router.use(protect);
@@ -33,4 +34,4 @@ router.patch(
   uploadController.reorderImages
 );
 
-module.exports = router;
+export default router;
