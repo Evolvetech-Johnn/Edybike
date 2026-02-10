@@ -38,9 +38,10 @@ const CategoryPage: FC = () => {
         setProducts(productsRes.data);
         
         setError('');
-      } catch (err) {
+      } catch (err: any) {
         console.error('Erro ao carregar categoria:', err);
-        setError('Erro ao carregar produtos desta categoria');
+        console.error('Detalhes do erro:', err.response?.data || err.message);
+        setError('Erro ao carregar produtos desta categoria. Verifique o console para mais detalhes.');
       } finally {
         setLoading(false);
       }

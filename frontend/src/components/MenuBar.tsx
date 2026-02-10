@@ -1,13 +1,13 @@
 import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../services/api';
 
 const MenuBar: FC = () => {
     const [categories, setCategories] = useState<any[]>([]);
 
     useEffect(() => {
-        fetch('https://edybike.onrender.com/api/categories')
-            .then(res => res.json())
-            .then(data => setCategories(data))
+        api.get('/categories')
+            .then(res => setCategories(res.data))
             .catch(err => console.error('Erro ao carregar menu:', err));
     }, []);
 

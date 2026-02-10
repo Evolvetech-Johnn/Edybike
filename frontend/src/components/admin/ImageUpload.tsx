@@ -1,5 +1,6 @@
 import { FC, useState, DragEvent } from 'react';
 import { FaCloudUploadAlt, FaImage } from 'react-icons/fa';
+import api from '../../services/api';
 
 interface ProductImage {
   url: string;
@@ -65,22 +66,15 @@ const ImageUpload: FC<ImageUploadProps> = ({
     });
 
     try {
-      const token = localStorage.getItem('token');
-      
-      const response = await fetch('http://localhost:5000/api/admin/upload/product-images', {
-        method: 'POST',
+      const response = await api.post('/admin/upload/product-images', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData
+            'Content-Type': 'multipart/form-data'
+        }
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Erro ao fazer upload');
-      }
-
-      const data = await response.json();
+      // axios throws on non-2xx status, so no need for !response.ok check
+      
+      const data = response.data;
       setUploadProgress(100);
       
       setTimeout(() => {
@@ -91,7 +85,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
 
     } catch (error: any) {
       console.error('Erro no upload:', error);
-      alert(error.message || 'Erro ao fazer upload das imagens');
+      alert(error.response?.data?.message || error.message || 'Erro ao fazer upload das imagens');
       setUploadProgress(0);
       setUploading(false);
     }

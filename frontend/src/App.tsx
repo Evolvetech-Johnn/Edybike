@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/public/Home";
 import ProductDetails from "./pages/public/ProductDetails";
+import ProductsPage from "./pages/public/ProductsPage";
 import CategoryPage from "./pages/public/CategoryPage";
 import Login from "./pages/admin/Login";
 import Register from "./pages/public/Register";
@@ -54,6 +55,9 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/order-success/:id" element={<OrderSuccess />} />
+
+                {/* Product Routes */}
+                <Route path="/products" element={<ProductsPage />} />
 
                 {/* Category Routes */}
                 <Route path="/categoria/:id" element={<CategoryPage />} />

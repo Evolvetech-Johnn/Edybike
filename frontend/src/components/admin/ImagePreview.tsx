@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { FaStar, FaTrash, FaRegStar } from 'react-icons/fa';
+import api from '../../services/api';
 
 interface ProductImage {
   url: string;
@@ -31,28 +32,12 @@ const ImagePreview: FC<ImagePreviewProps> = ({
 
     setDeleting(true);
     try {
-      const token = localStorage.getItem('token');
-      
-      const response = await fetch(
-        `http://localhost:5000/api/admin/upload/product-images/${productId}/${image.publicId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-      );
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Erro ao deletar imagem');
-      }
-
+      await api.delete(`/admin/upload/product-images/${productId}/${image.publicId}`);
       onDelete(image.publicId);
 
     } catch (error: any) {
       console.error('Erro ao deletar imagem:', error);
-      alert(error.message || 'Erro ao deletar imagem');
+      alert(error.response?.data?.message || error.message || 'Erro ao deletar imagem');
     } finally {
       setDeleting(false);
     }
@@ -61,33 +46,16 @@ const ImagePreview: FC<ImagePreviewProps> = ({
   const handleSetMain = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
-      
-      const response = await fetch(
-        'http://localhost:5000/api/admin/upload/product-images/set-main',
-        {
-          method: 'PATCH',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            productId,
-            publicId: image.publicId
-          })
-        }
-      );
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Erro ao definir imagem principal');
-      }
+      await api.patch('/admin/upload/product-images/set-main', {
+        productId,
+        publicId: image.publicId
+      });
 
       onSetMain(image.publicId);
 
     } catch (error: any) {
       console.error('Erro ao definir imagem principal:', error);
-      alert(error.message || 'Erro ao definir imagem principal');
+      alert(error.response?.data?.message || error.message || 'Erro ao definir imagem principal');
     } finally {
       setLoading(false);
     }
