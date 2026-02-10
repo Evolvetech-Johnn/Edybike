@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import api from '../../services/api';
+import { useToast } from '../../hooks/useToast';
 import '../../styles/admin.css';
 
 type Tab = 'geral' | 'contato' | 'redes' | 'politicas' | 'avancado';
@@ -9,6 +10,7 @@ const SettingsPage: FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('geral');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const toast = useToast();
   const [formData, setFormData] = useState({
     siteName: '',
     siteDescription: '',
@@ -54,9 +56,9 @@ const SettingsPage: FC = () => {
     try {
       setSaving(true);
       await api.put('/admin/settings', formData);
-      alert('Configurações salvas com sucesso!');
+      toast.success('Configurações salvas com sucesso!');
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Erro ao salvar');
+      toast.error(error.response?.data?.message || 'Erro ao salvar');
     } finally {
       setSaving(false);
     }

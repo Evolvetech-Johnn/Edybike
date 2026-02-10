@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { FaUser, FaCheckCircle, FaBan, FaEdit, FaTrash, FaToggleOn, FaToggleOff } from 'react-icons/fa';
 import api from '../../services/api';
+import { useToast } from '../../hooks/useToast';
 import '../../styles/admin.css';
 
 interface User {
@@ -27,6 +28,7 @@ const UsersList: FC = () => {
   const [filters, setFilters] = useState({ role: '', status: '', search: '' });
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const toast = useToast();
 
   useEffect(() => {
     loadData();
@@ -54,7 +56,9 @@ const UsersList: FC = () => {
       await api.patch(`/admin/users/${id}/toggle-status`);
       loadData();
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Erro ao alterar status');
+      toast.error(error.response?.data?.message || 'Erro ao alterar status');
+    } finally {
+      loadData();
     }
   };
 
@@ -63,8 +67,10 @@ const UsersList: FC = () => {
     try {
       await api.delete(`/admin/users/${id}`);
       loadData();
+      toast.success('Usuário deletado com sucesso!');
+      loadData();
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Erro ao deletar');
+      toast.error(error.response?.data?.message || 'Erro ao deletar');
     }
   };
 
