@@ -20,6 +20,8 @@ import StockMovements from "./pages/admin/StockMovements";
 import StockAdjust from "./pages/admin/StockAdjust";
 import OrdersList from "./pages/admin/OrdersList";
 import OrderDetailsPage from "./pages/admin/OrderDetailsPage";
+import PromotionsList from "./pages/admin/PromotionsList";
+import PromotionForm from "./pages/admin/PromotionForm";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
@@ -120,6 +122,30 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <StockAdjust />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/promotions"
+                  element={
+                    <ProtectedRoute>
+                      <PromotionsList />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/promotions/new"
+                  element={
+                    <ProtectedRoute>
+                      <PromotionForm />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/promotions/:id/edit"
+                  element={
+                    <ProtectedRoute>
+                      <PromotionForm />
                     </ProtectedRoute>
                   }
                 />
