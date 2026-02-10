@@ -92,7 +92,7 @@ const Home: FC = () => {
                 {categories.map(cat => (
                     <div 
                         key={cat._id} 
-                        onClick={() => navigateToCategory(cat.name)}
+                        onClick={() => navigateToCategory(cat._id)}
                         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
                         title={`Ver ${cat.name}`}
                     >
