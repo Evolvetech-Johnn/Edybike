@@ -127,6 +127,22 @@ function App() {
                   }
                 />
                 <Route
+                  path="/admin/orders"
+                  element={
+                    <ProtectedRoute>
+                      <OrdersList />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/orders/:id"
+                  element={
+                    <ProtectedRoute>
+                      <OrderDetailsPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/admin/promotions"
                   element={
                     <ProtectedRoute>
