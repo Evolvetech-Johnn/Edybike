@@ -52,6 +52,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const productRoutes = require('./routes/productRoutes');
 const promotionRoutes = require('./routes/promotionRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const userRoutes = require('./routes/userRoutes');
 const freteRoutes = require('./src/routes/frete.routes');
 const pedidoRoutes = require('./src/routes/pedido.routes');
 const adminRoutes = require('./src/routes/admin');
@@ -60,6 +61,8 @@ const adminRoutes = require('./src/routes/admin');
 app.use('/api/auth', authRoutes);
 app.use('/api/admin/upload', uploadRoutes);
 app.use('/api/admin/promotions', promotionRoutes);
+app.use('/api/admin/analytics', analyticsRoutes);
+app.use('/api/admin/users', userRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api', freteRoutes); // Rotas de frete
