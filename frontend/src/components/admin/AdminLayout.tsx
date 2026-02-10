@@ -12,7 +12,7 @@ import {
   FaBars,
   FaSignOutAlt
 } from 'react-icons/fa';
-import '../styles/admin.css';
+import '../../styles/admin.css';
 
 interface AdminLayoutProps {
   children: ReactNode;
