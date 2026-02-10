@@ -47,6 +47,21 @@ export const showInfoToast = (message: string) => {
   });
 };
 
+export const showWarningToast = (message: string) => {
+  toast(message, {
+    duration: 3500,
+    position: 'top-right',
+    style: {
+      background: '#f59e0b',
+      color: '#fff',
+      fontWeight: '600',
+      padding: '16px',
+      borderRadius: '8px',
+    },
+    icon: '⚠️',
+  });
+};
+
 // Componente Provider para incluir no App
 const ToastProvider: FC = () => {
   return (
