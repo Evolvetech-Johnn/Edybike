@@ -42,7 +42,7 @@ npm install
 
 Crie um arquivo `.env` na pasta `backend`:
 ```env
-PORT=3000
+PORT=5000
 MONGODB_URI=sua_connection_string_mongodb
 JWT_SECRET=seu_jwt_secret_aqui
 ```

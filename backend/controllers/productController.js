@@ -83,6 +83,25 @@ const createProduct = async (req, res) => {
   try {
     const { name, description, price, category, stock, imageUrl } = req.body;
 
+    // Validação básica
+    if (!name || !description || !category) {
+      return res.status(400).json({ 
+        message: 'Name, description and category are required' 
+      });
+    }
+
+    if (price === undefined || price < 0) {
+      return res.status(400).json({ 
+        message: 'Price must be a non-negative number' 
+      });
+    }
+
+    if (stock === undefined || stock < 0) {
+      return res.status(400).json({ 
+        message: 'Stock must be a non-negative number' 
+      });
+    }
+
     const product = new Product({
       name,
       description,
@@ -107,12 +126,25 @@ const updateProduct = async (req, res) => {
   const { name, description, price, category, stock, imageUrl, active } = req.body;
 
   try {
+    // Validação de valores negativos se fornecidos
+    if (price !== undefined && price < 0) {
+      return res.status(400).json({ 
+        message: 'Price cannot be negative' 
+      });
+    }
+
+    if (stock !== undefined && stock < 0) {
+      return res.status(400).json({ 
+        message: 'Stock cannot be negative' 
+      });
+    }
+
     const product = await Product.findById(req.params.id);
 
     if (product) {
       product.name = name || product.name;
       product.description = description || product.description;
-      product.price = price || product.price;
+      product.price = price !== undefined ? price : product.price;
       product.category = category || product.category;
       product.stock = stock !== undefined ? stock : product.stock;
       product.imageUrl = imageUrl || product.imageUrl;

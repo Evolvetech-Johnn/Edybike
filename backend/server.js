@@ -8,10 +8,31 @@ dotenv.config();
 
 const app = express();
 
+// Rate Limiting
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // máximo 100 requests por IP
+  message: 'Too many requests from this IP, please try again later.'
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 5, // máximo 5 tentativas de login
+  message: 'Too many login attempts, please try again later.'
+});
+
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true
+}));
 app.use(helmet());
+
+// Apply rate limiting to all API routes
+app.use('/api/', limiter);
 
 // Database Connection
 const connectDB = async () => {

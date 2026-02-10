@@ -1,31 +1,37 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, FC, FormEvent } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-const Login = () => {
+const Register: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
     
-    const result = await login(email, password);
+    const result = await register(email, password);
     
     if (result.success) {
-      navigate('/admin');
+      navigate('/');
     } else {
-      setError(result.message);
+      setError(result.message || 'Registration failed');
     }
   };
 
   return (
     <div style={{ maxWidth: '400px', margin: '4rem auto' }}>
       <div className="card">
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Admin Login</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Create Account</h2>
         
         {error && (
           <div style={{ 
@@ -59,16 +65,33 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              minLength={6}
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-            Entrar
+          <div className="form-group">
+            <label className="form-label">Confirm Password</label>
+            <input
+              type="password"
+              className="form-control"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              minLength={6}
+            />
+          </div>
+
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '1rem' }}>
+            Register
           </button>
+
+          <div style={{ textAlign: 'center' }}>
+            Already have an account? <Link to="/admin/login">Login here</Link>
+          </div>
         </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;

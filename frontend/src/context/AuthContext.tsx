@@ -1,5 +1,11 @@
-import { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import api from '../services/api';
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  ReactNode,
+} from "react";
+import api from "../services/api";
 
 interface User {
   id: string;
@@ -10,7 +16,14 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
+  login: (
+    email: string,
+    password: string,
+  ) => Promise<{ success: boolean; message?: string }>;
+  register: (
+    email: string,
+    password: string,
+  ) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
   loading: boolean;
 }
@@ -24,7 +37,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
@@ -34,41 +47,62 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
         setUser(JSON.parse(storedUser));
       } catch (error) {
-        console.error('Error parsing stored user:', error);
+        console.error("Error parsing stored user:", error);
       }
     }
     setLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<{ success: boolean; message?: string }> => {
+  const login = async (
+    email: string,
+    password: string,
+  ): Promise<{ success: boolean; message?: string }> => {
     try {
-      const { data } = await api.post('/auth/login', { email, password });
-      localStorage.setItem('user', JSON.stringify(data));
+      const { data } = await api.post("/auth/login", { email, password });
+      localStorage.setItem("user", JSON.stringify(data));
       setUser(data);
       return { success: true };
     } catch (error: any) {
-      return { 
-        success: false, 
-        message: error.response?.data?.message || 'Login failed' 
+      return {
+        success: false,
+        message: error.response?.data?.message || "Login failed",
       };
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
     setUser(null);
+  };
+
+  const register = async (
+    email: string,
+    password: string,
+  ): Promise<{ success: boolean; message?: string }> => {
+    try {
+      const { data } = await api.post("/auth/register", { email, password });
+      localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
+      return { success: true };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.response?.data?.message || "Registration failed",
+      };
+    }
   };
 
   const value = {
     user,
     login,
+    register,
     logout,
-    loading
+    loading,
   };
 
   return (

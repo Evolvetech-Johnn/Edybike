@@ -77,10 +77,16 @@ const MainHeader: FC = () => {
                     <span style={{ fontSize: '0.8rem', color: 'var(--text-light)' }}>
                         {user ? `Olá, ${user.role}` : 'Bem vindo(a)'}
                     </span>
-                    {user && (
+                    {user ? (
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
                             <Link to="/admin" style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-main)' }}>Painel</Link>
                             <span onClick={logout} style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--secondary-color)', cursor: 'pointer' }}>Sair</span>
+                        </div>
+                    ) : (
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <Link to="/admin/login" style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-main)', textDecoration: 'none' }}>Login</Link>
+                            <span style={{ fontSize: '0.9rem', color: '#d1d5db' }}>/</span>
+                            <Link to="/register" style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-main)', textDecoration: 'none' }}>Cadastro</Link>
                         </div>
                     )}
                 </div>
