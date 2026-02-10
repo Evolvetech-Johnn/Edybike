@@ -56,17 +56,8 @@ const Home: FC = () => {
       }
   };
 
-  const navigateToCategory = (categoryName: string) => {
-    const route = categoryRoutes[categoryName];
-    if (route) {
-      navigate(route);
-    } else {
-      // Fallback: scroll para a categoria na mesma página
-      const categoryId = categories.find(c => c.name === categoryName)?._id;
-      if (categoryId) {
-        scrollToCategory(categoryId);
-      }
-    }
+  const navigateToCategory = (categoryId: string) => {
+    navigate(`/categoria/${categoryId}`);
   };
 
   return (
