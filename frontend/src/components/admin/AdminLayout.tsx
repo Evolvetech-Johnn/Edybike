@@ -53,6 +53,14 @@ const AdminLayout: FC<AdminLayoutProps> = ({ children }) => {
 
   return (
     <div className="admin-layout">
+      {/* Mobile Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="admin-mobile-overlay"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <aside className={`admin-sidebar ${sidebarCollapsed ? 'collapsed' : ''} ${mobileMenuOpen ? 'show-mobile' : ''}`}>
         <div className="admin-sidebar-header">

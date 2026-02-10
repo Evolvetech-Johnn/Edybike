@@ -472,6 +472,40 @@
   .admin-filter-bar {
     flex-direction: column;
   }
+  
+  .admin-mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .admin-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .admin-table {
+    min-width: 600px; /* Garante scroll horizontal se necessário */
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header {
+    padding: var(--admin-spacing-md);
+  }
+  
+  .kpi-card {
+    padding: var(--admin-spacing-md);
+  }
+  
+  .kpi-card-value {
+    font-size: 1.25rem;
+  }
 }
 
 /* ===== UTILITIES ===== */

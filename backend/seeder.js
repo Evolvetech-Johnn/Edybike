@@ -128,6 +128,24 @@ const seedData = async () => {
         stock: 20,
         imageUrl: '/src/assets/img/acessorios-para-bike/suporte_de_parede_vertical_altmayer - 2 bicicletas.png',
         active: true
+      },
+      {
+        name: 'Cadeado U-Lock Onguard',
+        description: 'Cadeado de alta segurança tipo U-Lock com chave e suporte para fixação no quadro. Proteção máxima.',
+        price: 189.90,
+        category: bikeAccessoriesCategory._id,
+        stock: 15,
+        imageUrl: 'https://images.unsplash.com/photo-1622398925373-b46f5e82b04f?auto=format&fit=crop&q=80&w=800',
+        active: true
+      },
+      {
+        name: 'Bomba de Ar Portátil Giyo',
+        description: 'Bomba de mão compacta compatível com válvulas Presta e Schrader. Inclui suporte para quadro.',
+        price: 69.90,
+        category: bikeAccessoriesCategory._id,
+        stock: 35,
+        imageUrl: 'https://images.unsplash.com/photo-1622292435649-166258284534?auto=format&fit=crop&q=80&w=800',
+        active: true
       }
     ];
 

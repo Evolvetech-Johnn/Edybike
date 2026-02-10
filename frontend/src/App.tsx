@@ -9,6 +9,7 @@ import CategoryParts from "./pages/public/CategoryParts";
 import CategoryAccessories from "./pages/public/CategoryAccessories";
 import CategoryApparel from "./pages/public/CategoryApparel";
 import CategoryDeals from "./pages/public/CategoryDeals";
+import CategoryPage from "./pages/public/CategoryPage";
 import Login from "./pages/admin/Login";
 import Register from "./pages/public/Register";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -59,6 +60,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
 
                 {/* Category Routes */}
+                <Route path="/categoria/:id" element={<CategoryPage />} />
                 <Route path="/category/mountain" element={<CategoryMountain />} />
                 <Route path="/category/urban" element={<CategoryUrban />} />
                 <Route path="/category/electric" element={<CategoryElectric />} />

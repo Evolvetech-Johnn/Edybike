@@ -16,24 +16,8 @@ const Home: FC = () => {
   const [usingMock, setUsingMock] = useState(false);
 
   // Mapeamento de categorias para rotas
-  const categoryRoutes: Record<string, string> = {
-    'Mountain Bike': '/category/mountain',
-    'Mountain': '/category/mountain',
-    'Urbana': '/category/urban',
-    'Urban': '/category/urban',
-    'Elétrica': '/category/electric',
-    'Electric': '/category/electric',
-    'Kids': '/category/kids',
-    'Infantil': '/category/kids',
-    'Peças': '/category/parts',
-    'Parts': '/category/parts',
-    'Acessórios': '/category/accessories',
-    'Accessories': '/category/accessories',
-    'Vestuário': '/category/apparel',
-    'Apparel': '/category/apparel',
-    'Ofertas': '/category/deals',
-    'Deals': '/category/deals'
-  };
+  // Categorias agora usam ID real do banco
+
 
   useEffect(() => {
     const fetchData = async () => {
