@@ -114,7 +114,7 @@ const DashboardHome: FC = () => {
           title="Ticket Médio"
           value={formatCurrency(kpis?.avgTicket || 0)}
           icon={<FaChartLine />}
-          variant="info"
+          variant="primary"
         />
 
         <KPICard

@@ -12,6 +12,7 @@ import CategoryDeals from "./pages/public/CategoryDeals";
 import Login from "./pages/admin/Login";
 import Register from "./pages/public/Register";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import DashboardHome from "./pages/admin/DashboardHome";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
