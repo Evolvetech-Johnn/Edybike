@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback, FC } from 'react';
-import bike1 from '../assets/img/bikes/61qlTVSccxL._AC_UF350,350_QL80.png';
-import bike2 from '../assets/img/bikes/D_NQ_NP_978518-MLB82319281383_02.png';
-import bike3 from '../assets/img/bikes/MTBs-full-suspension-para-homens.png';
-import bike4 from '../assets/img/bikes/Pinarello-Dogma-65.1-Think-2.png';
+import bike1 from '../assets/img/bikes/Bicicleta Oggi Big Wheel 7.1 aro 29 18v - Shimano Alivio- Deore 2022.png';
+import bike2 from '../assets/img/bikes/bicicleta_caloi_explorer_comp_Aro 29 18V - Shimano  Alivio - 2021.png';
+import bike3 from '../assets/img/bikes/bicicleta_eletrica_oggi_big_wheel 8.3 Aro 29 - Shimano Deore 11V - 2022.png';
+import bike4 from '../assets/img/bikes/bicicleta_caloi_explorer_expert Aro 29 20V - ShimanoDeore - 2021.png';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+
 
 interface Slide {
   id: number;
@@ -18,32 +19,33 @@ const HeroCarousel: FC = () => {
     {
       id: 1,
       image: bike1,
-      title: "Bikes de Performance",
-      subtitle: "Tecnologia de ponta para ciclistas exigentes",
+      title: "Oggi Big Wheel 7.1",
+      subtitle: "Mountain Bike Aro 29 com Shimano Alivio/Deore",
       cta: "Ver Modelos"
     },
     {
       id: 2,
       image: bike2,
-      title: "Mountain Bikes",
-      subtitle: "Aventure-se pelos melhores trilhos",
+      title: "Caloi Explorer Comp",
+      subtitle: "Performance e conforto para suas aventuras",
       cta: "Explorar MTBs"
     },
     {
       id: 3,
       image: bike3,
-      title: "Full Suspension",
-      subtitle: "Conforto e controle em qualquer terreno",
-      cta: "Conhecer Linha"
+      title: "E-Bike Oggi Big Wheel 8.3",
+      subtitle: "Tecnologia elétrica para ir mais longe",
+      cta: "Conhecer E-Bikes"
     },
     {
       id: 4,
       image: bike4,
-      title: "Pinarello Collection",
-      subtitle: "O auge da engenharia italiana",
+      title: "Caloi Explorer Expert",
+      subtitle: "MTB profissional com Shimano Deore",
       cta: "Ver Coleção"
     }
   ];
+
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
