@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Middleware
 const { protect } = require('../../middleware/authMiddleware');
-const { requireAdmin, check Permission } = require('../../middleware/permissions');
+const { requireAdmin, checkPermission } = require('../../middleware/permissions');
 const { auditLog } = require('../../middleware/auditLog');
 
 // Controllers
