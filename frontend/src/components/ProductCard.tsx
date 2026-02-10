@@ -16,7 +16,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : product.category?.name || 'Geral';
   const imageUrl = getProductImage(product.imageUrl, categoryName, product.name);
   const parcelas = 12;
-  /* ... */
+  const valorParcela = product.price / parcelas;
   const pixPrice = product.price * 0.95; // 5% de desconto
 
   const handleAddToCart = (e: React.MouseEvent) => {

@@ -76,7 +76,7 @@ const freteController = {
       const pesoFinal = calcularPesoFinal(peso, dimensoes);
 
       const opcoes = [];
-      const cepOrigem = process.env.LOJA_CEP || '01001000';
+      const cepOrigem = process.env.LOJA_CEP || '86010000'; // Londrina/PR
 
       // 1. Jadlog (se configurado)
       if (jadlogService.isConfigured()) {

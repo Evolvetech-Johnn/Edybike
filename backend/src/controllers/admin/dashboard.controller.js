@@ -45,7 +45,7 @@ exports.getKPIs = async (req, res) => {
         {
           $group: {
             _id: null,
-            total: { $sum: '$total' }
+            total: { $sum: '$valores.total' }
           }
         }
       ]),
@@ -64,7 +64,7 @@ exports.getKPIs = async (req, res) => {
         {
           $group: {
             _id: null,
-            total: { $sum: '$total' }
+            total: { $sum: '$valores.total' }
           }
         }
       ]),
@@ -80,7 +80,7 @@ exports.getKPIs = async (req, res) => {
         {
           $group: {
             _id: null,
-            avg: { $avg: '$total' }
+            avg: { $avg: '$valores.total' }
           }
         }
       ]),
@@ -158,7 +158,7 @@ exports.getSalesChart = async (req, res) => {
             month: { $month: '$createdAt' },
             year: { $year: '$createdAt' }
           },
-          totalSales: { $sum: '$total' },
+          totalSales: { $sum: '$valores.total' },
           orderCount: { $sum: 1 }
         }
       },
@@ -202,9 +202,9 @@ exports.getTopProducts = async (req, res) => {
       { $unwind: '$itens' },
       {
         $group: {
-          _id: '$itens.produto',
+          _id: '$itens.produtoId',
           totalQuantity: { $sum: '$itens.quantidade' },
-          totalRevenue: { $sum: { $multiply: ['$itens.quantidade', '$itens.preco'] } }
+          totalRevenue: { $sum: { $multiply: ['$itens.quantidade', '$itens.valorUnitario'] } }
         }
       },
       { $sort: { totalQuantity: -1 } },
@@ -251,12 +251,18 @@ exports.getRecentOrders = async (req, res) => {
     const orders = await Order.find()
       .sort({ createdAt: -1 })
       .limit(parseInt(limit))
-      .select('_id cliente total status pagamento.status createdAt')
+      .select('_id cliente valores status pagamento.status createdAt')
       .lean();
     
+    // Formatar para frontend
+    const formattedOrders = orders.map(order => ({
+      ...order,
+      total: order.valores?.total || 0
+    }));
+
     res.json({
       success: true,
-      data: orders
+      data: formattedOrders
     });
     
   } catch (error) {
