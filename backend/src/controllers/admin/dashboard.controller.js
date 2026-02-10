@@ -3,9 +3,9 @@
  * KPIs e métricas gerais para página principal do admin
  */
 
-const Order = require('../../models/Order');
-const Product = require('../../models/Product');
-const User = require('../../models/User');
+const Order = require('../../../models/Order');
+const Product = require('../../../models/Product');
+const User = require('../../../models/User');
 
 /**
  * GET /api/admin/dashboard/kpis

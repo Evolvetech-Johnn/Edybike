@@ -3,9 +3,9 @@
  * Gerenciamento de pedidos (lista, filtros, ações administrativas)
  */
 
-const Order = require('../../models/Order');
-const Product = require('../../models/Product');
-const StockMovement = require('../../models/StockMovement');
+const Order = require('../../../models/Order');
+const Product = require('../../../models/Product');
+const StockMovement = require('../../../models/StockMovement');
 
 /**
  * GET /api/admin/orders

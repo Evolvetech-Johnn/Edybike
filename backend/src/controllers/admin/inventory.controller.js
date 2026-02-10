@@ -3,8 +3,8 @@
  * Controle de estoque e histórico de movimentações
  */
 
-const Product = require('../../models/Product');
-const StockMovement = require('../../models/StockMovement');
+const Product = require('../../../models/Product');
+const StockMovement = require('../../../models/StockMovement');
 
 /**
  * GET /api/admin/inventory/current

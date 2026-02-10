@@ -1,0 +1,3 @@
+# Deploy Trigger
+# Este arquivo força o Netlify a fazer redeploy
+# Última atualização: 2026-02-10 04:10:00

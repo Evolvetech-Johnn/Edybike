@@ -3,8 +3,8 @@
  * CRUD avançado e ações administrativas em produtos
  */
 
-const Product = require('../../models/Product');
-const StockMovement = require('../../models/StockMovement');
+const Product = require('../../../models/Product');
+const StockMovement = require('../../../models/StockMovement');
 
 /**
  * GET /api/admin/products
