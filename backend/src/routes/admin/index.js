@@ -7,15 +7,15 @@ const express = require('express');
 const router = express.Router();
 
 // Middleware
-const { protect } = require('../../middleware/authMiddleware');
-const { requireAdmin, checkPermission } = require('../../middleware/permissions');
-const { auditLog } = require('../../middleware/auditLog');
+const { protect } = require('../../../middleware/authMiddleware');
+const { requireAdmin, checkPermission } = require('../../../middleware/permissions');
+const { auditLog } = require('../../../middleware/auditLog');
 
 // Controllers
-const dashboardController = require('../controllers/admin/dashboard.controller');
-const productsController = require('../controllers/admin/products.controller');
-const ordersController = require('../controllers/admin/orders.controller');
-const inventoryController = require('../controllers/admin/inventory.controller');
+const dashboardController = require('../../controllers/admin/dashboard.controller');
+const productsController = require('../../controllers/admin/products.controller');
+const ordersController = require('../../controllers/admin/orders.controller');
+const inventoryController = require('../../controllers/admin/inventory.controller');
 
 // ====== DASHBOARD ======
 router.get('/dashboard/kpis', 
