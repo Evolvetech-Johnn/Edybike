@@ -13,6 +13,8 @@ import Login from "./pages/admin/Login";
 import Register from "./pages/public/Register";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import DashboardHome from "./pages/admin/DashboardHome";
+import ProductsList from "./pages/admin/ProductsList";
+import ProductForm from "./pages/admin/ProductForm";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
@@ -65,6 +67,30 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <DashboardHome />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/products"
+                  element={
+                    <ProtectedRoute>
+                      <ProductsList />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/products/new"
+                  element={
+                    <ProtectedRoute>
+                      <ProductForm />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/products/:id/edit"
+                  element={
+                    <ProtectedRoute>
+                      <ProductForm />
                     </ProtectedRoute>
                   }
                 />
