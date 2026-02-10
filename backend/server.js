@@ -51,6 +51,7 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const productRoutes = require('./routes/productRoutes');
 const promotionRoutes = require('./routes/promotionRoutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
 const freteRoutes = require('./src/routes/frete.routes');
 const pedidoRoutes = require('./src/routes/pedido.routes');
 const adminRoutes = require('./src/routes/admin');
