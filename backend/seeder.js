@@ -26,186 +26,223 @@ const seedData = async () => {
 
     console.log('📁 Criando categorias...');
     
-    // Categoria: Bicicletas
-    const bikesCategory = await Category.create({ 
-      name: 'Bicicletas' 
-    });
-    console.log(`✅ Categoria criada: ${bikesCategory.name}`);
-
-    // Categoria: Acessórios para Bike
-    const bikeAccessoriesCategory = await Category.create({ 
-      name: 'Acessórios para Bike' 
-    });
-    console.log(`✅ Categoria criada: ${bikeAccessoriesCategory.name}`);
-
-    // Categoria: Acessórios para Ciclista
-    const cyclistAccessoriesCategory = await Category.create({ 
-      name: 'Acessórios para Ciclista' 
-    });
-    console.log(`✅ Categoria criada: ${cyclistAccessoriesCategory.name}`);
+    console.log('📁 Criando categorias específicas...');
+    
+    const mtbCategory = await Category.create({ name: 'Mountain Bike' });
+    const urbanCategory = await Category.create({ name: 'Urbana' });
+    const electricCategory = await Category.create({ name: 'Elétrica' });
+    const kidsCategory = await Category.create({ name: 'Infantil' });
+    const partsCategory = await Category.create({ name: 'Peças' });
+    const accessoriesCategory = await Category.create({ name: 'Acessórios' });
+    const apparelCategory = await Category.create({ name: 'Vestuário' });
+    
+    console.log('✅ Categorias criadas!');
 
     console.log('\n🎨 Criando produtos...\n');
 
-    // ====== BICICLETAS ======
-    const bikes = [
+    // ====== MOUNTAIN BIKES ======
+    const mtbBikes = [
       {
         name: 'Oggi Big Wheel 7.1',
-        description: 'Bicicleta MTB Aro 29 com quadro em alumínio, suspensão dianteira e sistema de transmissão Shimano Alivio/Deore. Ideal para trilhas e uso misto.',
+        description: 'Bicicleta MTB Aro 29 com quadro em alumínio, suspensão dianteira e sistema de transmissão Shimano Alivio/Deore.',
         price: 3499.90,
-        category: bikesCategory._id,
+        category: mtbCategory._id,
         stock: 8,
-        imageUrl: '/src/assets/img/bikes/Bicicleta Oggi Big Wheel 7.1 aro 29 18v - Shimano Alivio- Deore 2022.png',
+        imageUrl: 'https://images.unsplash.com/photo-1576435728678-be95e39e565c?auto=format&fit=crop&q=80&w=800',
         active: true
       },
       {
         name: 'Caloi Explorer Comp',
-        description: 'Mountain Bike Aro 29 18V com grupo Shimano Alivio, freios a disco hidráulicos e suspensão com trava no guidão. Perfeita para aventuras off-road.',
+        description: 'Mountain Bike Aro 29 18V com grupo Shimano Alivio, freios a disco hidráulicos e suspensão com trava.',
         price: 2999.90,
-        category: bikesCategory._id,
+        category: mtbCategory._id,
         stock: 12,
-        imageUrl: '/src/assets/img/bikes/bicicleta_caloi_explorer_comp_Aro 29 18V - Shimano  Alivio - 2021.png',
+        imageUrl: 'https://images.unsplash.com/photo-1511994298220-4127046f224d?auto=format&fit=crop&q=80&w=800',
         active: true
       },
       {
         name: 'Caloi Explorer Expert',
-        description: 'MTB profissional Aro 29 20V com componentes Shimano Deore, suspensão de alta performance e geometria otimizada para competições.',
+        description: 'MTB profissional Aro 29 20V com componentes Shimano Deore e suspensão de alta performance.',
         price: 4299.90,
-        category: bikesCategory._id,
+        category: mtbCategory._id,
         stock: 6,
-        imageUrl: '/src/assets/img/bikes/bicicleta_caloi_explorer_expert Aro 29 20V - ShimanoDeore - 2021.png',
-        active: true
-      },
-      {
-        name: 'Caloi Mobylet Elétrica',
-        description: 'Bicicleta elétrica urbana Aro 20 com motor de 350W, bateria de longa duração e 7 velocidades. Ideal para mobilidade urbana sustentável.',
-        price: 5999.90,
-        category: bikesCategory._id,
-        stock: 4,
-        imageUrl: '/src/assets/img/bikes/bicicleta_eletrica_caloi_mobylet Aro 20 7V - 2022 - Preta.png',
-        active: true
-      },
-      {
-        name: 'Oggi Big Wheel 8.3 E-MTB',
-        description: 'E-bike MTB Aro 29 com motor elétrico, transmissão Shimano Deore 11V e bateria integrada. Tecnologia de ponta para trilhas desafiadoras.',
-        price: 12999.90,
-        category: bikesCategory._id,
-        stock: 3,
-        imageUrl: '/src/assets/img/bikes/bicicleta_eletrica_oggi_big_wheel 8.3 Aro 29 - Shimano Deore 11V - 2022.png',
+        imageUrl: 'https://images.unsplash.com/photo-1596568359553-a56de6970068?auto=format&fit=crop&q=80&w=800',
         active: true
       }
     ];
 
-    for (const bike of bikes) {
-      const product = await Product.create(bike);
-      console.log(`✅ Produto criado: ${product.name} - R$ ${product.price}`);
-    }
+    // ====== URBANAS ======
+    const urbanBikes = [
+       {
+        name: 'Caloi City Tour',
+        description: 'Bicicleta urbana leve e rápida, ideal para deslocamento na cidade. Pneus 700c e freios a disco.',
+        price: 2199.90,
+        category: urbanCategory._id,
+        stock: 10,
+        imageUrl: 'https://images.unsplash.com/photo-1485965120184-e224f7a1dcfe?auto=format&fit=crop&q=80&w=800',
+        active: true
+      },
+       {
+        name: 'Sense Move 2023',
+        description: 'Design moderno e conforto para o dia a dia. Quadro em alumínio e geometria relaxada.',
+        price: 1899.90,
+        category: urbanCategory._id,
+        stock: 15,
+        imageUrl: 'https://images.unsplash.com/photo-1507035895480-080074937d3d?auto=format&fit=crop&q=80&w=800',
+        active: true
+      }
+    ];
 
-    // ====== ACESSÓRIOS PARA BIKE ======
-    const bikeAccessories = [
+    // ====== ELÉTRICAS ======
+    const electricBikes = [
+      {
+        name: 'Caloi Mobylet Elétrica',
+        description: 'Bicicleta elétrica urbana Aro 20 com motor de 350W, bateria de longa duração e 7 velocidades.',
+        price: 5999.90,
+        category: electricCategory._id,
+        stock: 4,
+        imageUrl: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&q=80&w=800',
+        active: true
+      },
+       {
+        name: 'Oggi Big Wheel 8.3 E-MTB',
+        description: 'E-bike MTB Aro 29 com motor elétrico, transmissão Shimano Deore 11V e bateria integrada.',
+        price: 12999.90,
+        category: electricCategory._id,
+        stock: 3,
+        imageUrl: 'https://images.unsplash.com/photo-1623062089290-7cb528205753?auto=format&fit=crop&q=80&w=800',
+        active: true
+      }
+    ];
+
+    // ====== INFANTIL ======
+    const kidsBikes = [
+      {
+        name: 'Caloi Cecil Aro 20',
+        description: 'Bicicleta infantil com cestinha e design clássico. Ideal para passeios no parque.',
+        price: 899.90,
+        category: kidsCategory._id,
+        stock: 20,
+        imageUrl: 'https://images.unsplash.com/photo-1549487922-446759c258d4?auto=format&fit=crop&q=80&w=800',
+        active: true
+      },
+      {
+        name: 'Nathor Verden Aro 16',
+        description: 'Bicicleta robusta e segura para os primeiros pedaladas. Acompanha rodinhas laterais.',
+        price: 649.90,
+        category: kidsCategory._id,
+        stock: 25,
+        imageUrl: 'https://images.unsplash.com/photo-1614742785084-25c7cc649c20?auto=format&fit=crop&q=80&w=800',
+        active: true
+      }
+    ];
+
+    // ====== PEÇAS ======
+    const parts = [
+      {
+        name: 'Câmbio Traseiro Shimano Deore',
+        description: 'Câmbio traseiro de 10/11 velocidades com tecnologia Shadow RD+ para estabilidade da corrente.',
+        price: 450.00,
+        category: partsCategory._id,
+        stock: 30,
+        imageUrl: 'https://images.unsplash.com/photo-1563214227-814a6012059c?auto=format&fit=crop&q=80&w=800',
+        active: true
+      },
+       {
+        name: 'Pedal Clip Shimano PD-M520',
+        description: 'Pedal de encaixe clássico, robusto e confiável. Acompanha tacos.',
+        price: 320.00,
+        category: partsCategory._id,
+        stock: 40,
+        imageUrl: 'https://images.unsplash.com/photo-1582650711925-502693992257?auto=format&fit=crop&q=80&w=800',
+        active: true
+      },
+       {
+        name: 'Pneu Continental Race King',
+        description: 'Pneu de competição para MTB, rápido e com boa aderência. 29x2.2.',
+        price: 280.00,
+        category: partsCategory._id,
+        stock: 50,
+        imageUrl: 'https://images.unsplash.com/photo-1580974511818-df3d68df83cc?auto=format&fit=crop&q=80&w=800',
+        active: true
+      }
+    ];
+
+    // ====== ACESSÓRIOS ======
+    const accessories = [
       {
         name: 'Suporte de Chão Universal',
-        description: 'Suporte de chão para bicicleta com base antiderrapante e ajuste de altura. Mantém sua bike em pé com segurança.',
+        description: 'Suporte de chão para bicicleta com base antiderrapante.',
         price: 129.90,
-        category: bikeAccessoriesCategory._id,
+        category: accessoriesCategory._id,
         stock: 25,
-        imageUrl: '/src/assets/img/acessorios-para-bike/suporte_de_chao_para_bicicleta.png',
-        active: true
-      },
-      {
-        name: 'Suporte de Parede Vertical Altmayer',
-        description: 'Suporte de parede vertical para economia de espaço. Capacidade para 1 bicicleta, fácil instalação.',
-        price: 79.90,
-        category: bikeAccessoriesCategory._id,
-        stock: 30,
-        imageUrl: '/src/assets/img/acessorios-para-bike/suporte_de_parede_vertical_altmayer.png',
-        active: true
-      },
-      {
-        name: 'Suporte de Parede Duplo Altmayer',
-        description: 'Suporte de parede vertical para 2 bicicletas. Design compacto e robusto, ideal para garagens.',
-        price: 149.90,
-        category: bikeAccessoriesCategory._id,
-        stock: 20,
-        imageUrl: '/src/assets/img/acessorios-para-bike/suporte_de_parede_vertical_altmayer - 2 bicicletas.png',
+        imageUrl: 'https://images.unsplash.com/photo-1510255567332-965db0d6621f?auto=format&fit=crop&q=80&w=800',
         active: true
       },
       {
         name: 'Cadeado U-Lock Onguard',
-        description: 'Cadeado de alta segurança tipo U-Lock com chave e suporte para fixação no quadro. Proteção máxima.',
+        description: 'Cadeado de alta segurança tipo U-Lock.',
         price: 189.90,
-        category: bikeAccessoriesCategory._id,
+        category: accessoriesCategory._id,
         stock: 15,
         imageUrl: 'https://images.unsplash.com/photo-1622398925373-b46f5e82b04f?auto=format&fit=crop&q=80&w=800',
         active: true
       },
-      {
-        name: 'Bomba de Ar Portátil Giyo',
-        description: 'Bomba de mão compacta compatível com válvulas Presta e Schrader. Inclui suporte para quadro.',
-        price: 69.90,
-        category: bikeAccessoriesCategory._id,
-        stock: 35,
+       {
+        name: 'Farol LED Recarregável',
+        description: 'Farol dianteiro com 500 lumens e carregamento USB.',
+        price: 99.90,
+        category: accessoriesCategory._id,
+        stock: 40,
         imageUrl: 'https://images.unsplash.com/photo-1622292435649-166258284534?auto=format&fit=crop&q=80&w=800',
         active: true
       }
     ];
-
-    for (const accessory of bikeAccessories) {
-      const product = await Product.create(accessory);
-      console.log(`✅ Produto criado: ${product.name} - R$ ${product.price}`);
-    }
-
-    // ====== ACESSÓRIOS PARA CICLISTA ======
-    const cyclistAccessories = [
-      {
+    
+    // ====== VESTUÁRIO ======
+    const apparel = [
+       {
         name: 'Capacete Abus Macator',
-        description: 'Capacete de ciclismo profissional com tecnologia In-Mold, sistema de ventilação e ajuste personalizado. Segurança e conforto.',
+        description: 'Capacete de ciclismo profissional com tecnologia In-Mold.',
         price: 549.90,
-        category: cyclistAccessoriesCategory._id,
+        category: apparelCategory._id,
         stock: 15,
-        imageUrl: '/src/assets/img/acessorios-para-ciclista/capacete_de_ciclismo_abus_macator.png',
+        imageUrl: 'https://images.unsplash.com/photo-1558507306-4b13d2a01344?auto=format&fit=crop&q=80&w=800',
         active: true
       },
       {
-        name: 'Capacete Abus Viantor',
-        description: 'Capacete aerodinâmico com viseira integrada, sistema de ventilação otimizado e proteção MIPS.',
-        price: 649.90,
-        category: cyclistAccessoriesCategory._id,
-        stock: 12,
-        imageUrl: '/src/assets/img/acessorios-para-ciclista/capacete_de_ciclismo_abus_viantor.png',
+        name: 'Camisa Ciclismo Mauro Ribeiro',
+        description: 'Camisa com tecido tecnológico, proteção UV e bolsos traseiros.',
+        price: 249.90,
+        category: apparelCategory._id,
+        stock: 30,
+        imageUrl: 'https://images.unsplash.com/photo-1523381294911-8d3cead23475?auto=format&fit=crop&q=80&w=800',
         active: true
       },
-      {
-        name: 'Capacete GTA NX Inmold',
-        description: 'Capacete esportivo cinza e vermelho com tecnologia In-Mold, ajuste por catraca e forro removível.',
-        price: 299.90,
-        category: cyclistAccessoriesCategory._id,
-        stock: 20,
-        imageUrl: '/src/assets/img/acessorios-para-ciclista/capacete_gta_nx_inmold_cinza_e_vermelho.png',
-        active: true
-      },
-      {
+       {
         name: 'Sapatilha LeTour MTB',
-        description: 'Sapatilha para mountain bike preta e branca com sistema de encaixe SPD, solado antiderrapante e ventilação.',
+        description: 'Sapatilha para mountain bike com sistema de encaixe SPD.',
         price: 399.90,
-        category: cyclistAccessoriesCategory._id,
+        category: apparelCategory._id,
         stock: 18,
-        imageUrl: '/src/assets/img/acessorios-para-ciclista/sapatilha_de_ciclismo_letour_para mtb- preto e branco.png',
-        active: true
-      },
-      {
-        name: 'Sapatilha TSW New Fit MTB',
-        description: 'Sapatilha de alta performance para MTB com fechamento por velcro, solado rígido e design ergonômico.',
-        price: 449.90,
-        category: cyclistAccessoriesCategory._id,
-        stock: 14,
-        imageUrl: '/src/assets/img/acessorios-para-ciclista/sapatilha_tsw_new_fit_para_mtb.png',
+        imageUrl: 'https://images.unsplash.com/photo-1512909481869-0eaa1e9817ba?auto=format&fit=crop&q=80&w=800',
         active: true
       }
     ];
 
-    for (const accessory of cyclistAccessories) {
-      const product = await Product.create(accessory);
-      console.log(`✅ Produto criado: ${product.name} - R$ ${product.price}`);
+    const allProducts = [
+        ...mtbBikes,
+        ...urbanBikes,
+        ...electricBikes,
+        ...kidsBikes,
+        ...parts,
+        ...accessories,
+        ...apparel
+    ];
+
+    for (const prod of allProducts) {
+      const product = await Product.create(prod);
+      console.log(`✅ Produto criado: ${product.name}`);
     }
 
     // Criar usuário admin se não existir

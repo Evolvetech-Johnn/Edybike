@@ -1,46 +1,48 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const MenuBar: FC = () => {
-    const menuItems = [
-        { name: 'MOUNTAIN BIKES', path: '/bikes/mountain' },
-        { name: 'URBANAS', path: '/bikes/urban' },
-        { name: 'ELÉTRICAS', path: '/bikes/electric' },
-        { name: 'INFANTIL', path: '/bikes/kids' },
-        { name: 'PEÇAS', path: '/parts' },
-        { name: 'ACESSÓRIOS', path: '/accessories' },
-        { name: 'VESTUÁRIO', path: '/apparel' },
-        { name: 'OFERTAS', path: '/deals' }
-    ];
+    const [categories, setCategories] = useState<any[]>([]);
+
+    useEffect(() => {
+        fetch('https://edybike.onrender.com/api/categories')
+            .then(res => res.json())
+            .then(data => setCategories(data))
+            .catch(err => console.error('Erro ao carregar menu:', err));
+    }, []);
 
     return (
         <div style={{ backgroundColor: '#0056b3', color: 'white' }}>
             <div className="container">
-                <nav>
+                <nav style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
                     <ul style={{ 
                         display: 'flex', 
                         listStyle: 'none', 
                         margin: 0, 
                         padding: 0, 
-                        justifyContent: 'center',
-                        gap: '2rem'
+                        justifyContent: 'flex-start', /* Mobile: left align */
+                        gap: '2rem',
+                        minWidth: 'max-content',
+                        paddingBottom: '5px' /* Scrollbar space */
                     }}>
-                        {menuItems.map(item => (
-                            <li key={item.name} style={{ padding: '0.8rem 0' }}>
+                        {categories.map(cat => (
+                            <li key={cat._id} style={{ padding: '0.8rem 0' }}>
                                 <Link 
-                                    to={item.path} 
+                                    to={`/categoria/${cat._id}`}
                                     style={{ 
                                         color: 'white', 
                                         fontWeight: 'bold', 
                                         fontSize: '0.9rem', 
                                         textDecoration: 'none',
                                         letterSpacing: '0.5px',
-                                        transition: 'opacity 0.3s'
+                                        transition: 'opacity 0.3s',
+                                        textTransform: 'uppercase',
+                                        whiteSpace: 'nowrap'
                                     }}
                                     onMouseEnter={(e) => (e.target as HTMLElement).style.opacity = '0.8'}
                                     onMouseLeave={(e) => (e.target as HTMLElement).style.opacity = '1'}
                                 >
-                                    {item.name}
+                                    {cat.name}
                                 </Link>
                             </li>
                         ))}
