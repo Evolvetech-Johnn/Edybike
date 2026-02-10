@@ -1089,3 +1089,43 @@ html {
     height: 28px;
   }
 }
+/* ... existing code ... */
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer-bottom {
+  border-top: 1px solid #374151;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+  }
+  
+  .footer-copyright {
+    text-align: left;
+  }
+  
+  .footer-brand-bottom {
+    justify-content: flex-start;
+  }
+}
+
+.footer-copyright {
+  text-align: center;
+}
+
+.footer-brand-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
