@@ -25,6 +25,7 @@ import PromotionForm from "./pages/admin/PromotionForm";
 import AnalyticsDashboard from "./pages/admin/AnalyticsDashboard";
 import UsersList from "./pages/admin/UsersList";
 import UserForm from "./pages/admin/UserForm";
+import SettingsPage from "./pages/admin/SettingsPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
@@ -197,6 +198,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <UserForm />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/settings"
+                  element={
+                    <ProtectedRoute>
+                      <SettingsPage />
                     </ProtectedRoute>
                   }
                 />
