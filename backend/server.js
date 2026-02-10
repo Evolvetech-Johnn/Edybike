@@ -61,8 +61,6 @@ const adminRoutes = require('./src/routes/admin');
 app.use('/api/auth', authRoutes);
 app.use('/api/admin/upload', uploadRoutes);
 app.use('/api/admin/promotions', promotionRoutes);
-app.use('/api/admin/analytics', analyticsRoutes);
-app.use('/api/admin/users', userRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api', freteRoutes); // Rotas de frete
