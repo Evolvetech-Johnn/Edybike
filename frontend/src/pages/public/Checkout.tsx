@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import { useFrete } from '../hooks/useFrete';
-import { formatPrice } from '../data/categoryProducts';
-import CEPInput from '../components/CEPInput';
-import ShippingOptions from '../components/ShippingOptions';
-import { showSuccessToast, showErrorToast } from '../components/ToastProvider';
-import api from '../services/api';
-import '../styles/checkout.css';
+import { useFrete } from '../../hooks/useFrete';
+import { formatPrice } from '../../data/categoryProducts';
+import CEPInput from '../../components/CEPInput';
+import ShippingOptions from '../../components/ShippingOptions';
+import { showSuccessToast, showErrorToast } from '../../components/ToastProvider';
+import api from '../../services/api';
+import '../../styles/checkout.css';
 
 const Checkout: FC = () => {
   const navigate = useNavigate();

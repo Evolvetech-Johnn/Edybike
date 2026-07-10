@@ -29,6 +29,7 @@ import { CartProvider } from "./context/CartContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Checkout from "./pages/public/Checkout";
 import OrderSuccess from "./pages/public/OrderSuccess";
+import PageProgressBar from "./components/PageProgressBar";
 
 function App() {
   return (
@@ -36,18 +37,10 @@ function App() {
       <CartProvider>
         <Router>
           <ToastProvider />
-          <div
-            className="App"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "100vh",
-            }}
-          >
+          <PageProgressBar />
+          <div className="App flex flex-col min-h-screen bg-bg text-ink font-inter">
             <Header />
-            <main
-              style={{ flex: 1 }}
-            >
+            <main className="flex-1">
               <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} />

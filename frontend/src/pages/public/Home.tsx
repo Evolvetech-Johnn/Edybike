@@ -4,6 +4,7 @@ import api from '../../services/api';
 import ProductCard from '../../components/ProductCard';
 import HeroCarousel from '../../components/HeroCarousel';
 import BenefitsBar from '../../components/BenefitsBar';
+import AnimatedSection from '../../components/AnimatedSection';
 import { mockProducts, mockCategories } from '../../data/mockProducts';
 import { Product, Category } from '../../types';
 
@@ -54,7 +55,7 @@ const Home: FC = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#f9fafb', paddingBottom: '4rem' }}>
+    <div className="pb-16">
       
       <HeroCarousel />
       <BenefitsBar />
@@ -70,7 +71,7 @@ const Home: FC = () => {
         {/* =========================================
             CATEGORIES ROW (Restored & Styled)
             ========================================= */}
-        <section className="mb-12">
+        <AnimatedSection className="mb-12">
             <div className="category-row">
                 {categories.map(cat => (
                     <div 
@@ -101,13 +102,13 @@ const Home: FC = () => {
                     <span className="category-label">Seguros</span>
                  </div>
             </div>
-        </section>
+        </AnimatedSection>
 
 
         {/* =========================================
             SHELF 1: DESTAQUES / LANÇAMENTOS
             ========================================= */}
-        <section className="mb-12">
+        <AnimatedSection className="mb-12">
              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid #e5e7eb', paddingBottom: '1rem' }}>
                 <h3 className="section-title" style={{ fontSize: '1.75rem', margin: 0, color: 'var(--accent)' }}>
                     Bicicletas Oggi
@@ -122,12 +123,12 @@ const Home: FC = () => {
                      <ProductCard key={product._id} product={product} />
                  ))}
              </div>
-        </section>
+        </AnimatedSection>
 
         {/* =========================================
             BANNERS GRID 2 (Reference Image 3)
             ========================================= */}
-        <section className="mb-12 banner-grid-2">
+        <AnimatedSection className="mb-12 banner-grid-2">
             <div className="promo-banner" style={{ background: '#111827', display: 'flex', alignItems: 'center', padding: '2rem' }}>
                 <div style={{ flex: 1 }}>
                      <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '0.5rem' }}>Pedivela GTA</h3>
@@ -149,13 +150,13 @@ const Home: FC = () => {
                     <img src="https://images.unsplash.com/photo-1598517596541-60292b322a49?auto=format&fit=crop&q=80&w=300" alt="Selim" style={{ width: '150px', height: '150px', objectFit: 'contain', borderRadius: '50%', border: '4px solid #374151' }} />
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
 
          {/* =========================================
              SHELF 2: CAPACETES ABSOLUTE (Reference Image 4)
              ========================================= */}
          {categories.length > 0 && (
-            <section className="mb-12">
+            <AnimatedSection className="mb-12">
                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid #e5e7eb', paddingBottom: '1rem' }}>
                     <h3 className="section-title" style={{ fontSize: '1.75rem', margin: 0, color: 'var(--accent)' }}>
                         Capacetes Absolute
@@ -170,13 +171,13 @@ const Home: FC = () => {
                          <ProductCard key={product._id} product={product} />
                      ))}
                  </div>
-            </section>
+            </AnimatedSection>
          )}
 
         {/* =========================================
             BANNERS GRID 3 (Mosaic - Reference Image 5)
             ========================================= */}
-        <section className="mb-12 banner-grid-3">
+        <AnimatedSection className="mb-12 banner-grid-3">
              {/* Big Left Banner */}
             <div className="promo-banner big-banner hover-lift" style={{ 
                 minHeight: '400px',
@@ -215,7 +216,7 @@ const Home: FC = () => {
                      <h3 style={{ color: 'white', margin: 0, fontSize: '1.2rem' }}>Mountain Bike</h3>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
 
          {/* =========================================
              SHELF 3: OUTRAS CATEGORIAS
@@ -225,7 +226,7 @@ const Home: FC = () => {
              if (catProducts.length === 0) return null;
 
              return (
-                <section key={cat._id} className="mb-12">
+                <AnimatedSection key={cat._id} className="mb-12">
                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid #e5e7eb', paddingBottom: '1rem' }}>
                         <h3 className="section-title" style={{ fontSize: '1.75rem', margin: 0, color: 'var(--accent)' }}>
                             {cat.name}
@@ -240,7 +241,7 @@ const Home: FC = () => {
                              <ProductCard key={product._id} product={product} />
                          ))}
                      </div>
-                </section>
+                </AnimatedSection>
              );
          })}
 
